@@ -1,1 +1,21 @@
+.decor-brand-text {
+    font-size: 2em;
+    line-height: 1em;
+    font-family: 'Yellowtail', cursive;
+}
+.card-form-wrap {
+    display:flex;
+    justify-content: center;
 
+}
+.card-form {
+    float:none;
+    line-height:18.4px;
+    position:relative;
+}
+.admin-panel {
+    margin: 2px;
+}
+.comment-item {
+    width: 400px;
+}

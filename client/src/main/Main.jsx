@@ -1,0 +1,52 @@
+import React from 'react';
+import {CardColumns, Row, Col, Container, Badge} from 'react-bootstrap';
+
+import MainLastItem from './MainLastItem'
+import MainTopCollection from './MainTopCollection'
+
+export default function Main() {
+    return (
+        <Container  className="my-4">
+            <Row>
+                <Col>
+                    <h5> Last added items:</h5>
+                <CardColumns className="mb-5 p-2 shadow-lg">
+                    <MainLastItem />
+                    <MainLastItem />
+                    <MainLastItem />
+                </CardColumns>
+                    <h5> Top collections an week:</h5>
+                <CardColumns className="mb-5 p-2 shadow-lg">
+                    <MainTopCollection />
+                    <MainTopCollection />
+                    <MainTopCollection />
+                </CardColumns>
+
+                </Col>
+                <Col md={2}>
+                    <div className="my-2 p-1 border">
+                        <h5> Tags:</h5>
+                        <a href="#" class="badge badge-secondary mx-1">a1</a>
+                        <a href="#" class="badge badge-secondary mx-1">a3</a>
+                        <a href="#" class="badge badge-secondary mx-1">aa 33 aa</a>
+                        <a href="#" class="badge badge-secondary mx-1">ff ddd</a>
+                        <a href="#" class="badge badge-secondary mx-1">asd sd asdas asda</a>
+                        <a href="#" class="badge badge-secondary mx-1">asd  dd dd</a>
+                        <a href="#" class="badge badge-secondary mx-1">a1</a>
+                        <a href="#" class="badge badge-secondary mx-1">a3</a>
+                        <a href="#" class="badge badge-secondary mx-1">aa 33 aa</a>
+                        <a href="#" class="badge badge-secondary mx-1">ff ddd</a>
+                        <a href="#" class="badge badge-secondary mx-1">asd sd asdas asda</a>
+                        <a href="#" class="badge badge-secondary mx-1">asd  dd dd</a>
+                        <a href="#" class="badge badge-secondary mx-1">a1</a>
+                        <a href="#" class="badge badge-secondary mx-1">a3</a>
+                        <a href="#" class="badge badge-secondary mx-1">aa 33 aa</a>
+                        <a href="#" class="badge badge-secondary mx-1">ff ddd</a>
+                        <a href="#" class="badge badge-secondary mx-1">asd sd asdas asda</a>
+                        <a href="#" class="badge badge-secondary mx-1">asd  dd dd</a>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+    )
+}
