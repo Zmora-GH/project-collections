@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
 
-export default function MainTopCollection() {
+export default function CollectionPrev() {
     return (
         <Card
             border="dark"

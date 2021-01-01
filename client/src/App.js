@@ -2,14 +2,15 @@ import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-do
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import Header from './common/Header';
-import Footer from './common/Footer';
+import Header from './main/Header';
+import Footer from './main/Footer';
 import Login from './auth/Login';
 import Signup from './auth/Signup';
 import Admin from './admin/Admin';
 import Profile from './profile/Profile';
 import Main from './main/Main';
 import Collection from './collection/Collection';
+import ItemList from './items/ItemList';
 
 import {AuthContext} from './core/context';
 
@@ -40,6 +41,7 @@ function App() {
                         <Route path="/admin" exact> <Admin /> </Route>
                         <Route path="/profile" exact> <Profile /> </Route>
                         <Route path="/collection/:id"> <Collection /> </Route>
+                        <Route path="/items/:tag_slug"> <ItemList /> </Route>
                         <Route path="/" exact> <Main /> </Route>
                         <Redirect to="/"/>
                     </Switch>

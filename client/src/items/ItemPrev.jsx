@@ -1,10 +1,15 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
 
-export default function MainLastItem() {
+export default function ItemPrev() {
     // TODO: Редирект на страницу коллекции и якорь на конкретный итем
     return (
-        <Card border="light" bg="dark" text="light">
+        <Card
+            border="light"
+            bg="dark"
+            text="light"
+            role="button"
+            onClick={ () => { window.location.replace("/collection/3#1") } }>
             <Card.Img
                 variant="top"
                 src="https://images.freeimages.com/images/large-previews/10a/coins-1239681.jpg"

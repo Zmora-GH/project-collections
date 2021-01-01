@@ -55,7 +55,6 @@ export default function Profile() {
                         </tbody>
                     </Table>
                 </Card.Body>
-                <Card.Footer>Card Footer Text</Card.Footer>
             </Card>
         </div>
     )
