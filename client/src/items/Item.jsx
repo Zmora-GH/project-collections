@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Carousel, ListGroup, Col, Row, Button,Badge, Table} from 'react-bootstrap';
+import {Card, Carousel, ListGroup, Col, Row, Button,Badge, Table, Spinner} from 'react-bootstrap';
 import {HandThumbsUp} from 'react-bootstrap-icons';
 
 import Comment from '../comments/Comment'
@@ -73,6 +73,10 @@ export default function Item() {
                 <Card.Footer>
                     <Card.Title>Comments:</Card.Title>
                     <ListGroup as="ul" className="">
+                        <Spinner animation="border" role="status">
+  <span className="sr-only">Loading...</span>
+</Spinner>
+
                         <Comment />
                         <Comment />
                         <Comment />

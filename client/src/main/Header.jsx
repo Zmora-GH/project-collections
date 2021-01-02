@@ -5,7 +5,7 @@ import {Search} from 'react-bootstrap-icons';
 import {AuthContext} from '../core/context';
 
 export default function Header() {
-    const {isAuth, isAdmin} = useContext(AuthContext);
+    const {isAuth, isAdmin, username} = useContext(AuthContext);
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Navbar.Brand href="/" className="decor-brand-text">Collections</Navbar.Brand>
@@ -14,6 +14,8 @@ export default function Header() {
                 <Nav className="mr-auto">
                     <Nav.Link href="/collection/3">TEST:COLLECTION</Nav.Link>
                     <Nav.Link href="/items/BlaBalKab">TEST:ITEMS</Nav.Link>
+                    <Nav.Link href="/iform">I-FORM</Nav.Link>
+                    <Nav.Link href="/cform">C-FORM</Nav.Link>
                 </Nav>
                 <Nav>
                     <Form inline>
@@ -29,23 +31,21 @@ export default function Header() {
                         </InputGroup>
                     </Form>
                 </Nav>
-
                     {isAuth ?
+                        <Nav>
+                            <NavDropdown title={username.toUpperCase()} id="collasible-nav-dropdown">
+                                <NavDropdown.Item href="/profile">PROFILE LINK</NavDropdown.Item>
+                                {isAdmin ? <NavDropdown.Item href="/admin">ADMIN LINK</NavDropdown.Item> : ''}
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="/" onClick={()=>{localStorage.clear()}}>LOGOUT LINK</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    :
                         <Nav>
                             <Nav.Link href="/login">Sign In</Nav.Link>
                             <Nav.Link href="/signup"> Sign Up </Nav.Link>
                         </Nav>
-                    :
-                        <Nav>
-                            <NavDropdown title="USERNAME" id="collasible-nav-dropdown">
-                                <NavDropdown.Item href="/profile">PROFILE LINK</NavDropdown.Item>
-                                {isAdmin ? <NavDropdown.Item href="/admin">ADMIN LINK</NavDropdown.Item> : ''}
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">LOGOUT LINK</NavDropdown.Item>
-                            </NavDropdown>
-                        </Nav>
                     }
-
             </Navbar.Collapse>
         </Navbar>
     )

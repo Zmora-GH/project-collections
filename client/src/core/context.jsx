@@ -1,10 +1,11 @@
 import { createContext } from 'react'
 
-function noop() {}
-
 export const AuthContext = createContext({
-    isAuth: true,
-    isAdmin: true
+    username: null,
+    isAuth: false,
+    isAdmin: false,
+    userId: null,
+    token: null
 });
 
 export const SomeContext = createContext({
