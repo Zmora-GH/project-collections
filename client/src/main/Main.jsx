@@ -1,5 +1,5 @@
 import React from 'react';
-import {CardColumns, Row, Col, Container, Badge} from 'react-bootstrap';
+import {CardColumns, Row, Col, Container} from 'react-bootstrap';
 
 import ItemPrev from '../items/ItemPrev';
 import CollectionPrev from '../collection/CollectionPrev';

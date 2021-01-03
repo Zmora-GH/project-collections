@@ -16,13 +16,12 @@ import ItemForm from './items/ItemForm';
 import {AuthContext} from './core/context';
 
 function App() {
-    let [isAuth, isAdmin, userId, token, username] = [false, false, null, null, null]
+    let [isAuth, isAdmin, userId, username] = [false, false, null, null]
     const data = JSON.parse(localStorage.getItem('userData'))
     if (data && data.token) {
         isAuth = true;
         isAdmin = data.staff;
         userId = data.id;
-        token = data.token;
         username = data.username;
     }
     return (
@@ -33,7 +32,7 @@ function App() {
                 <Switch>
                     <Route path="/login" exact> <Login /> </Route>
                     <Route path="/signup" exact> <Signup /> </Route>
-                    <Route path="/profile" > <Profile /> </Route>
+                    <Route path="/profile/:profileUserName" exact> <Profile /> </Route>
                     {isAdmin ? <Route path="/admin" exact> <Admin /> </Route> : ''}
                     <Route path="/collection/:id"> <Collection /> </Route>
                     <Route path="/items/:tag_slug"> <ItemList /> </Route>

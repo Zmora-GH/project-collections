@@ -6,14 +6,16 @@ import axios from 'axios';
 import TableRow from './TableRow';
 
 export default function Admin() {
+    const [loading, setLoading] = useState(false);
     const [userList, setUserList] = useState([]);
-    const [checkedList, setCheckedList] = useState([]);
 
     useEffect(() => {
-        if (userList && userList.length === 0) {
-            axios.get('/api/admin/users').then((res)=>{setUserList(res.data)}).catch((err)=>{console.log(err)})
-        }
-    })
+        setLoading(true)
+        axios.get('/api/admin/users')
+        .then((res)=>{setUserList(res.data)})
+        .catch((err)=>{console.log(err)})
+        setLoading(false)
+    }, [])
 
     const checkAllHandle = (event) => {
         let temp = Array.from(document.getElementsByClassName('js-table-row'));
@@ -30,14 +32,21 @@ export default function Admin() {
                 selectedIdsArray.push(userList[i]._id)
             }
         }
-        setCheckedList([selectedIdsArray])
+        return selectedIdsArray;
     }
 
     const makePostRequest = async (adr) => {
-        getSelectedIds()
+        setLoading(true)
+        let checkedList = getSelectedIds()
         await axios.post('/api/admin/' + adr, checkedList)
-        .then((res)=>{ })
-        .catch((err)=>{ })
+        .then((res)=>{
+            setLoading(false);
+            window.location.reload()
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+        setLoading(false)
     }
     return (
         <div className="bg-light">
@@ -60,6 +69,10 @@ export default function Admin() {
                         Delete
                         <TrashFill color="white" className="mx-2"/>
                     </Button>
+                    { loading ?
+                    <span class="spinner-border spinner-border-sm text-info" role="status" aria-hidden="true"></span>
+                    : '' }
+
                 </Card.Header>
                 <Card.Body>
                     <Table size="sm" striped bordered hover responsive>

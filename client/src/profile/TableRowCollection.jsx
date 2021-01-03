@@ -4,7 +4,7 @@ import {TrashFill,PenFill} from 'react-bootstrap-icons';
 export default function TableRowCollection() {
     return (
         <tr>
-            <td className="text-center col-md-1">
+            <td className="">
                 <ButtonGroup >
                   <Button size="sm" variant="info" >
                       <PenFill color="white" className="mx-2"/>

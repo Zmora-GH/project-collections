@@ -34,10 +34,10 @@ export default function Header() {
                     {isAuth ?
                         <Nav>
                             <NavDropdown title={username.toUpperCase()} id="collasible-nav-dropdown">
-                                <NavDropdown.Item href="/profile">PROFILE LINK</NavDropdown.Item>
-                                {isAdmin ? <NavDropdown.Item href="/admin">ADMIN LINK</NavDropdown.Item> : ''}
+                                <NavDropdown.Item href={"/profile/" + username}>My Profile</NavDropdown.Item>
+                                {isAdmin ? <NavDropdown.Item href="/admin">Admin Panel</NavDropdown.Item> : ''}
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href="/" onClick={()=>{localStorage.clear()}}>LOGOUT LINK</NavDropdown.Item>
+                                <NavDropdown.Item href="/" onClick={()=>{localStorage.clear()}}>Logout</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                     :

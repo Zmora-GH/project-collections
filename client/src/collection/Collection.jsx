@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Carousel, Card, ListGroup, Button} from 'react-bootstrap';
+import {Carousel, Card, Button} from 'react-bootstrap';
 
 import Item from '../items/Item';
 import {AuthContext} from '../core/context';
