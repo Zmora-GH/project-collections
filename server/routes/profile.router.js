@@ -21,7 +21,6 @@ router.post('/collections', async (req, res) => {
         const username = req.body.username;
         // TODO СДЕЛАТЬ КОЛЛЕКЦИИ
         // const user = await Collection.find({username: username});
-
         res.status(201).json([null,null]);
    } catch (err) {
        console.log(err);

@@ -19,3 +19,10 @@
 .comment-item {
     width: 400px;
 }
+.dropbox {
+    border: 2px dashed #111111;
+    height: 160px;
+    width: 240px;
+    text-align: center;
+    background-color: rgba(25,25,25,0.1)
+}
