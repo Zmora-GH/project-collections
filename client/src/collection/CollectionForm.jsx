@@ -1,20 +1,22 @@
-import React, {useCallback, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import Dropzone, {useDropzone} from 'react-dropzone'
 import {Card, Form, Button, Col} from 'react-bootstrap';
 import axios from 'axios';
 
+import Field from './Field'
+import {AuthContext} from '../core/context';
+
 export default function CollectionForm() {
-    const [formData, setFormData] = useState({name: "", theme: "", discription: ""})
+    const {userId} = useContext(AuthContext);
+    const [formData, setFormData] = useState({name: "", theme: "", discription: "", files:[]})
     const [themes, setThemes] = useState([])
-    const [fields, setFields] = useState(new Array(15).fill(null))
-    const {getRootProps, getInputProps} = useDropzone()
+    const [fields, setFields] = useState(new Array(15).fill(''))
+    const {getRootProps, getInputProps, acceptedFiles, fileRejections} = useDropzone()
 
-    const onDropHandle = (file) => {
-        console.log(file)
-    }
-
-    const onDragOverHandle = (event) => {
-        console.log(event);
+    const onDropHandle = (afiles, rfiles, event) => {
+        if (afiles) {
+            setFormData({...formData, files: afiles})
+        }
     }
 
     const formChangeHandle = (event) => {
@@ -28,54 +30,78 @@ export default function CollectionForm() {
     }
 
     const formSubmitHandle = (event) => {
-        console.log('SUBMIT');
-        // axios.post()
+        event.preventDefault();
+        console.log(formData.files);
+        axios.post('/api/collection/create', {form: formData, fields, userId}, {headers: {"Contetnt-Type":"multipart/form-data"}})
+        .then((res) => { })
+        .catch((err) => { console.log("ERR: ", err) })
     }
 
     useEffect( () => {
         if (themes.length === 0) {
-            console.log('GET THEMES');
-            // axios.get()
+            axios.get('/api/themes')
+            .then((res) => {setThemes(res.data)})
+            .catch((err) => { console.log(err); })
         }
     }, [])
+
     return (
         <Card className="my-1 p-3 bg-dark text-light">
             <Form className="bg-dark text-light" onSubmit={formSubmitHandle}>
                 <Form.Row>
-                    <Col md={3}>
+                    <Col lg={3}>
                         <Form.Group className="bg-dark text-light">
-                            <Dropzone onDrop={onDropHandle} onDragOver={onDragOverHandle} maxFiles={1}>
+                            <Dropzone
+                                onDrop={onDropHandle}
+                                onDragEnter={(event)=>{event.target.classList.toggle ('dropbox-active')}}
+                                onDragLeave={(event)=>{event.target.classList.toggle ('dropbox-active')}}
+                                accept="image/jpg, image/jpeg, image/png"
+                                maxFiles={1}
+                                maxSize={1000000}
+                                >
                                 {({getRootProps, getInputProps}) => (
                                     <section>
-                                        <div {...getRootProps()} className="rounded dropbox">
-                                            <input {...getInputProps()} /> <p> Click here  or drop image</p>
+                                        <div {...getRootProps()}
+                                            className={
+                                                formData.files.length ?
+                                                "rounded  dropbox dropbox-success"
+                                                :
+                                                "rounded  dropbox "}
+                                            >
+                                            <input {...getInputProps()} placeholder="asdasd"/>
+                                            <p> Click here  or drop image</p>
                                         </div>
                                     </section>
                                 )}
                             </Dropzone>
+                            <Form.Text className="text-muted text-truncate">
+                                {formData.files.length ? formData.files[0].name : 'Please choice correct file ...'}
+                            </Form.Text>
                         </Form.Group>
                     </Col>
-                    <Col md={9}>
+                    <Col lg={1}></Col>
+                    <Col lg={8}>
                         <Form.Group>
                             <Form.Control
+                                required={true}
                                 onChange={formChangeHandle}
                                 type="text"
                                 placeholder="Name"
                                 name="name"
                                 className="bg-dark text-light"/>
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group className="form-inline">
                             <Form.Control
+                                required={true}
                                 onChange={formChangeHandle}
                                 as="select"
                                 custom
-                                placeholder="Theme"
                                 name="theme"
-                                className="bg-dark text-light">
-                                <option value="0" className="text-muted">Choose theme ... </option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                className="bg-dark text-light w-25">
+                                    <option value="" className="text-muted">Theme ...</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
@@ -91,60 +117,25 @@ export default function CollectionForm() {
                     </Col>
                 </Form.Row>
 
-
             <Card.Title className="my-2">Custom Fields:</Card.Title>
+            <Card.Text className="my-1 text-muted">
+                Please enter the names of custom fields or leave the field blank
+            </Card.Text>
             <Form inline>
                 {[
-                    'Numeric Field',
-                    'String Field',
-                    'Text Field',
-                    'Date Field',
-                    'Boolean Field'
+                    'Numeric Field','Numeric Field','Numeric Field',
+                    'String Field','String Field','String Field',
+                    'Text Field','Text Field','Text Field',
+                    'Date Field','Date Field','Date Field',
+                    'Boolean Field','Boolean Field','Boolean Field'
                 ].map((field, index) => {
-                    return (
-                        <Col lg={4} className="my-1">
-                            <Form.Row className="my-1 mx-2">
-                                <Form.Control type="checkbox" className="mx-1"/>
-                                <Form.Control
-                                    onChange={fieldsChangeHandle}
-                                    disabled={true}
-                                    type="text"
-                                    placeholder={field}
-                                    name=""
-                                    className="bg-dark text-light"
-                                    id={(index*3).toString()}/>
-                            </Form.Row>
-                            <Form.Row className="my-1 mx-2">
-                                <Form.Control type="checkbox" className="mx-1"/>
-                                <Form.Control
-                                    onChange={fieldsChangeHandle}
-                                    disabled={true}
-                                    type="text"
-                                    placeholder={field}
-                                    name=""
-                                    className="bg-dark text-light"
-                                    id={(index*3 + 1).toString()}/>
-                            </Form.Row>
-                            <Form.Row className="my-1 mx-2">
-                                <Form.Control type="checkbox" className="mx-1"/>
-                                <Form.Control
-                                    onChange={fieldsChangeHandle}
-                                    disabled={true}
-                                    type="text"
-                                    placeholder={field}
-                                    name=""
-                                    className="bg-dark text-light"
-                                    id={(index*3 + 2).toString()}/>
-                            </Form.Row>
-                        </Col>
-                    )
+                    return (<Field key={index} field={field} index={index} func={fieldsChangeHandle}/>)
                 })}
             </Form>
             <Button variant="light" type="submit" className="my-3 px-3 float-right w-25">
                 Create
             </Button>
             </Form>
-
         </Card>
     )
 }

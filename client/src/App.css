@@ -1,3 +1,15 @@
+.c-tag {
+  --tag-bg                  : #252525;
+  --tag-hover               : #353535;
+  --tag-text-color          : #FFF;
+  --tags-border-color       : #050505;
+  --tag-text-color--edit    : grey;
+  --tag-remove-bg           : #aaaaaa;
+  --tag-pad                 : .2em 0.5em;
+  --tag-inset-shadow-size   : 1em;
+  --tag-remove-btn-bg--hover: grey;
+  --placeholder-color       : grey
+}
 .decor-brand-text {
     font-size: 2em;
     line-height: 1em;
@@ -24,5 +36,22 @@
     height: 160px;
     width: 240px;
     text-align: center;
-    background-color: rgba(25,25,25,0.1)
+    background-color: rgba(25,25,25,0.1);
+}
+.dropbox:hover{
+    cursor: pointer;
+    background-color: rgba(10,15,35,0.2);
+}
+.dropbox-success {
+    background-color: rgba(10,75,15,0.3);
+}
+.dropbox-active {
+    border: 2px solid #090909;
+    height: 160px;
+    width: 240px;
+    text-align: center;
+    background-color: rgba(10,15,35,0.2);
+}
+.cpoint {
+    cursor: pointer;
 }

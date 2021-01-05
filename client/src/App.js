@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "@yaireo/tagify/dist/tagify.css"
 import './App.css';
 
 import Header from './main/Header';
