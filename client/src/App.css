@@ -10,6 +10,9 @@
   --tag-remove-btn-bg--hover: grey;
   --placeholder-color       : grey
 }
+.cfgroup {
+    width: 300px;
+}
 .decor-brand-text {
     font-size: 2em;
     line-height: 1em;
@@ -54,4 +57,7 @@
 }
 .cpoint {
     cursor: pointer;
+}
+.unres {
+    resize: none;
 }

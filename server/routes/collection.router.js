@@ -6,18 +6,7 @@ const router = Router();
 
 router.post('/create', async (req, res) => {
     try {
-        // const dropbox = new Dropbox({ accessToken: process.env.ACCESSTOKEN });
-        // dropbox.filesUpload({path: '/' + file.name, contents: file})
-        // .then(function(response) {
-        //     var results = document.getElementById('results');
-        //     var br = document.createElement("br");
-        //     results.appendChild(document.createTextNode('File uploaded!'));
-        //     results.appendChild(br);
-        //     console.log(response);
-        // })
-        // .catch(function(error) {
-        //     console.error(error);
-        // });
+        // FILE - - -- - - >
         const {form, fields, userId} = req.body;
 
         const colectionData = {
@@ -36,7 +25,31 @@ router.post('/create', async (req, res) => {
    }
 })
 
+router.post('/scheme', async (req, res) => {
+    try {
+        const collectionId = req.body
+        // const coll = await Collection.findOne() ----- coll.field_mask
+
+        res.status(201).json({});
+   } catch (err) {
+       console.log(err);
+       res.status(500).json({message: 'Oops! Error in TryCatch collections.router : scheme'});
+   }
+})
+
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 form

@@ -23,6 +23,7 @@ app.use('/api/admin', require('./routes/admin.router'));
 app.use('/api/profile', require('./routes/profile.router.js'));
 app.use('/api/themes', require('./routes/theme.router.js'));
 app.use('/api/collection', require('./routes/collection.router.js'));
+app.use('/api/tag', require('./routes/tag.router.js'));
 
 app.listen(process.env.PORT, () => {
     console.log(`[>  Server started on port ${process.env.PORT}  <]`);

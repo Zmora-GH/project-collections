@@ -13,13 +13,13 @@ export default function DropImageBox(props) {
             maxSize={1000000}
             >
             {({getRootProps, getInputProps}) => (
-                <section>
+                <section className="text-center">
                     <div {...getRootProps()}
                         className={
                             props.successFlag ?
-                            "rounded  dropbox dropbox-success"
+                            "rounded  dropbox dropbox-success mx-auto"
                             :
-                            "rounded  dropbox "}
+                            "rounded  dropbox mx-auto"}
                         >
                         <input {...getInputProps()} placeholder="asdasd"/>
                         <p> Click here  or drop image</p>
