@@ -35,10 +35,10 @@ function App() {
                     <Route path="/signup" exact> <Signup /> </Route>
                     <Route path="/profile/:profileUserName" exact> <Profile /> </Route>
                     {isAdmin ? <Route path="/admin" exact> <Admin /> </Route> : ''}
-                    <Route path="/collection/:id"> <Collection /> </Route>
+                    <Route path="/collection/:collId" exact> <Collection /> </Route>
                     <Route path="/items/:tag_slug"> <ItemList /> </Route>
-                    <Route path="/iform/"> <ItemForm /> </Route>
-                    <Route path="/cform/"> <CollectionForm /> </Route>
+                    <Route path="/collection/create/:profile_name" exact> <CollectionForm /> </Route>
+                    <Route path="/collection/create_item/:collection_id"> <ItemForm /> </Route>
                     <Route path="/" exact> <Main /> </Route>
                     <Redirect to="/"/>
                 </Switch>

@@ -1,10 +1,12 @@
 import React from 'react';
 import {Button, ButtonGroup } from 'react-bootstrap';
 import {TrashFill,PenFill} from 'react-bootstrap-icons';
-export default function TableRowCollection() {
+
+export default function TableRowCollection(props) {
+    // TODO: delete and edit button
     return (
         <tr>
-            <td className="">
+            <td className="ctd">
                 <ButtonGroup >
                   <Button size="sm" variant="info" >
                       <PenFill color="white" className="mx-2"/>
@@ -14,12 +16,16 @@ export default function TableRowCollection() {
                   </Button>
                 </ButtonGroup>
             </td>
-            <td>DATA 1</td>
-            <td>DATA 2</td>
-            <td>DATA 3</td>
-            <td>DATA 4</td>
-            <td>DATA 5</td>
-            <td>DATA 6</td>
+            <td className="ctd">
+                <img src={'/static' + props.data.image_url} height="60px"/>
+            </td>
+            <td className="ctd">
+                <a className="text-decoration-none" href={`/collection/${props.data._id}`} >{props.data.name}</a>
+            </td>
+            <td className="ctd">{props.data.theme}</td>
+            <td className="ctd">{props.data.items.length}</td>
+            <td className="ctd">{new Date(props.data.created).toLocaleDateString()}</td>
+
         </tr>
     )
 }

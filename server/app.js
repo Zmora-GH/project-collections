@@ -7,17 +7,21 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use('/static', express.static(__dirname + '/storage'));
+
 
 mongoose.connect(process.env.DB_STRING_LOCAL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 }, (err) => {
     if (err) { throw err}
     else {
         console.log('[>  Database is alive  <]');
     }
 })
+
 app.use('/api/auth', require('./routes/auth.router'));
 app.use('/api/admin', require('./routes/admin.router'));
 app.use('/api/profile', require('./routes/profile.router.js'));

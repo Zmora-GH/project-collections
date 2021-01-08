@@ -61,7 +61,7 @@ export default function CustomFields(props) {
                             required={true}
                             onChange={props.onChangeFunc}
                             id={index + 9}
-                            className="bg-dark text-light"
+                            className="bg-dark text-light text-center"
                             type="date"/>
                     </Col>
                 </Form.Group>
@@ -70,6 +70,7 @@ export default function CustomFields(props) {
             {props.scheme.slice(12,15).map((field,index)=>{ if (field != '') { return (
                 <Form.Group as={Row} className="justify-content-center">
                     <Form.Check
+                        className="text-center"
                         id={index + 12}
                         onChange={props.onChangeFunc}
                         label={field}/>

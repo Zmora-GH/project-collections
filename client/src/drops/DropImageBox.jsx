@@ -10,19 +10,24 @@ export default function DropImageBox(props) {
             onDragLeave={(event)=>{event.target.classList.toggle ('dropbox-active')}}
             accept="image/jpg, image/jpeg, image/png"
             maxFiles={1}
-            maxSize={1000000}
+            maxSize={500000}
             >
             {({getRootProps, getInputProps}) => (
                 <section className="text-center">
                     <div {...getRootProps()}
-                        className={
-                            props.successFlag ?
-                            "rounded  dropbox dropbox-success mx-auto"
-                            :
+                        className={props.prev ?
+                            "rounded  dropbox dropbox-success mx-auto":
                             "rounded  dropbox mx-auto"}
+                        style={{
+                            "background-position": "center",
+                            "background-size": "contain",
+                            "background-image": `url(${props.prev})`,
+                            "background-origin": "content-box",
+                            "background-repeat": "no-repeat"
+                        }}
                         >
-                        <input {...getInputProps()} placeholder="asdasd"/>
-                        <p> Click here  or drop image</p>
+                        <input {...getInputProps()}/>
+                        {props.prev ? '' : <p> Click here  or drop image</p>}
                     </div>
                 </section>
             )}

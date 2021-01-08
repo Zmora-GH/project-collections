@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {Card, Form, Button, Col} from 'react-bootstrap';
+import {useParams} from "react-router-dom";
 import Tags from "@yaireo/tagify/dist/react.tagify"
 import axios from 'axios';
 
@@ -8,9 +9,9 @@ import DropImageBox from '../drops/DropImageBox';
 import CustomFields from './CustomFields';
 
 export default function ItemForm() {
-    // TODO: получить ид коллекции из параметров
+    const {collection_id} = useParams();
     const {userId} = useContext(AuthContext);
-    const [scheme, setScheme] = useState(new Array(15).fill(''))
+    const [scheme, setScheme] = useState([])
     const [inputTags, setInputTags] = useState([])
     const [whiteList, setWhiteList] = useState()
     const [formData, setFormData] = useState({name: "", files: [], fields: [], tags: []})
@@ -51,8 +52,17 @@ export default function ItemForm() {
     }
 
     useEffect( () => {
+        if (scheme.length === 0) {
+            axios.post('/api/collection/scheme', {cid: collection_id})
+            .then((res)=>{ })
+            .catch((err)=>{ })
+        }
+        if (!whiteList){
+            axios.get('/api/tag')
+            .then((res)=>{ let temp = []; res.data.forEach( (tag) => { temp.push(tag.name) }); setWhiteList(temp)})
+            .catch((err)=>{ console.log(err) })
+        }
         // TODO: получить схему по ид коллекции post
-        // TODO: получить тэги get
         // ЗАГЛУШКА
         let temp = new Array(15).fill('field')
         setScheme(temp)

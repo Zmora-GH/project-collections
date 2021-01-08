@@ -14,8 +14,6 @@ export default function Header() {
                 <Nav className="mr-auto">
                     <Nav.Link href="/collection/3">TEST:COLLECTION</Nav.Link>
                     <Nav.Link href="/items/BlaBalKab">TEST:ITEMS</Nav.Link>
-                    <Nav.Link href="/iform">I-FORM</Nav.Link>
-                    <Nav.Link href="/cform">C-FORM</Nav.Link>
                 </Nav>
                 <Nav>
                     <Form inline>

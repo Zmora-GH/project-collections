@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react';
-import Dropzone, {useDropzone} from 'react-dropzone'
+import {useParams} from "react-router-dom";
+import FormData from 'form-data'
 import {Card, Form, Button, Col} from 'react-bootstrap';
 import axios from 'axios';
 
@@ -8,15 +9,24 @@ import {AuthContext} from '../core/context';
 import DropImageBox from '../drops/DropImageBox';
 
 export default function CollectionForm() {
-    const {userId} = useContext(AuthContext);
-    const [formData, setFormData] = useState({name: "", theme: "", discription: "", files:[]})
+    const {profile_name} = useParams(); // Перед этим возникает 404 // замменитть на пропс + переход после submit
+    const [loading, setLoading] = useState(false)
+    const [formData, setFormData] = useState({name: "", theme: "", discription: ""})
     const [themes, setThemes] = useState([])
     const [fields, setFields] = useState(new Array(15).fill(''))
-    const {getRootProps, getInputProps, acceptedFiles, fileRejections} = useDropzone()
+    const [fileCont, setFileCont] = useState()
+    const [prevUrl, setPrevUrl] = useState()
+
 
     const onDropHandle = (afiles, rfiles, event) => {
-        if (afiles) {
-            setFormData({...formData, files: afiles})
+        if (afiles.length !== 0) {
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                let url = reader.result
+                setPrevUrl(url);
+            }
+            reader.readAsDataURL(afiles[0])
+            setFileCont(afiles)
         }
     }
 
@@ -32,19 +42,27 @@ export default function CollectionForm() {
 
     const formSubmitHandle = (event) => {
         event.preventDefault();
-        console.log(formData.files);
-        axios.post('/api/collection/create', {form: formData, fields, userId}, {headers: {"Contetnt-Type":"multipart/form-data"}})
-        .then((res) => { })
-        .catch((err) => { console.log("ERR: ", err) })
+        axios.post('/api/collection/create', {...formData, fields, profile_name})
+        .then((res) => {
+            const coll_id = res.data.coll_id;
+            const data = new FormData();
+            data.append("id", coll_id);
+            data.append('image', fileCont[0]);
+            const config = {headers: {'Content-Type': 'multipart/form-data'}};
+            axios.post('/api/collection/image', data, config)
+            .catch((err) => { console.log(err) });
+        })
+        .catch((err) => { console.log(err) })
+
     }
 
     useEffect( () => {
         if (themes.length === 0) {
             axios.get('/api/themes')
-            .then((res) => {setThemes(res.data)})
+            .then((res) => { setThemes(res.data) })
             .catch((err) => { console.log(err); })
         }
-    }, [])
+    }, [themes])
 
     return (
         <Card className="my-1 p-3 bg-dark text-light">
@@ -52,9 +70,9 @@ export default function CollectionForm() {
                 <Form.Row>
                     <Col lg={3}>
                         <Form.Group className="bg-dark text-light">
-                            <DropImageBox onDrop={onDropHandle} successFlag={formData.files.length} />
-                            <Form.Text className="text-muted text-truncate">
-                                {formData.files.length ? formData.files[0].name : 'Please choice correct file ...'}
+                            <DropImageBox onDrop={onDropHandle} successFlag={prevUrl} prev={prevUrl}/>
+                            <Form.Text className="text-muted text-truncate mx-2">
+                                {prevUrl ? '' : 'Please choice correct file ...'}
                             </Form.Text>
                         </Form.Group>
                     </Col>
@@ -78,9 +96,9 @@ export default function CollectionForm() {
                                 name="theme"
                                 className="bg-dark text-light w-25">
                                     <option value="" className="text-muted">Theme ...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    {themes.map( (theme) => {
+                                        return <option value={theme}>{theme}</option>
+                                    } )}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
@@ -118,5 +136,3 @@ export default function CollectionForm() {
         </Card>
     )
 }
-
-// TODO: Подгрузка тем и подстановка в опции
