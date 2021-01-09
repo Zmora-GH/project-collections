@@ -14,6 +14,9 @@ export default function TableRowCollection(props) {
                   <Button size="sm" variant="danger" >
                       <TrashFill color="white" />
                   </Button>
+                  <Button size="sm" variant="success" as="a" href={ `/collection/create_item/${props.data._id}` }>
+                      <PenFill color="white" />
+                  </Button>
                 </ButtonGroup>
             </td>
             <td className="ctd">

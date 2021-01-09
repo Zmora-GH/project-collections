@@ -4,9 +4,9 @@ var Schema = mongoose.Schema;
 
 var ItemSchema = new Schema(
     {
-        _id: mongoose.Schema.Types.ObjectId,
         fieldset_id: {type: Schema.Types.ObjectId, ref: 'Fieldset' },
         collection_id: {type: Schema.Types.ObjectId, ref: 'Collection'},
+        tags_id: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
         name: {type: String, required: true},
         created: {type: Date, default: Date.now},
         like_list: [{type: Schema.Types.ObjectId, ref: 'User'}],

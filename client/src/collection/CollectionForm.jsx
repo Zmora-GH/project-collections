@@ -46,19 +46,18 @@ export default function CollectionForm() {
         .then((res) => {
             const coll_id = res.data.coll_id;
             const data = new FormData();
-            data.append("id", coll_id);
+            data.append("coll_id", coll_id);
             data.append('image', fileCont[0]);
             const config = {headers: {'Content-Type': 'multipart/form-data'}};
             axios.post('/api/collection/image', data, config)
             .catch((err) => { console.log(err) });
         })
         .catch((err) => { console.log(err) })
-
     }
 
     useEffect( () => {
         if (themes.length === 0) {
-            axios.get('/api/themes')
+            axios.get('/api/themes')    
             .then((res) => { setThemes(res.data) })
             .catch((err) => { console.log(err); })
         }

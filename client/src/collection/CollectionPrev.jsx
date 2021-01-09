@@ -1,7 +1,12 @@
 import React from 'react';
-import {Card} from 'react-bootstrap';
+import {Card, Button} from 'react-bootstrap';
 
-export default function CollectionPrev() {
+export default function CollectionPrev(props) {
+    //props or params for get id // link
+    // id
+    // image url
+    // description
+    // item count
     return (
         <Card
             border="dark"
@@ -10,6 +15,7 @@ export default function CollectionPrev() {
             role="button"
             onClick={()=>{window.location.replace("/collection/3")}}
         >
+            <Card.Title >Card title</Card.Title>
             <Card.Img
                 variant="top"
                 src="https://images.freeimages.com/images/large-previews/10a/coins-1239681.jpg"
@@ -17,14 +23,23 @@ export default function CollectionPrev() {
                 rounded
                 />
             <Card.Body>
-                <Card.Title>Card title</Card.Title>
                 <Card.Text>
-                    This is a wider card with supporting text below as a natural lead-in to
-                    additional content. This content is a little bit longer.
+                    DESCRIPTION
+                    tags_idasd
+                    tags_idasd
+                    asdasdasdasda
+                    asdasdasdasdaloren
+                    1231231 asdas dasdasda sdasdasdasd  asdas
+                    as asd asdasdasdasdas  asdasdasdas as asdasdas asdasdasdas
+                    a as
+                     asdasdasdasdasd
+                      asdasdasdasdasd
+
                 </Card.Text>
             </Card.Body>
             <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
+                <small className="text-muted">  20-20-2020   </small>
+                <small className="text-muted float-right">  username   </small>
             </Card.Footer>
         </Card>
     )

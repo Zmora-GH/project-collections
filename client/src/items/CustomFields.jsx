@@ -1,33 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form, Col, Row,Container} from 'react-bootstrap';
 
 export default function CustomFields(props) {
-    const numClearing = (e) => {
-        e.target.value = e.target.value.replace(/[^\d]/g, '');
-    }
-
     return (
         <Container className="my-2">
 
             {props.scheme.slice(0,3).map((field,index)=>{ if (field != '') { return (
                 <Form.Group as={Row} className="justify-content-center">
-                    <Form.Label column lg={3} > {field} </Form.Label>
                     <Col lg={6}>
+                        <Form.Label > {field} </Form.Label>
                         <Form.Control
                             required={true}
                             onChange={props.onChangeFunc}
-                            name={index}
+                            id={index ? index : "0"}
                             className="bg-dark text-light"
                             type="number"
-                            onKeyUp={numClearing}/>
+                            />
                     </Col>
                 </Form.Group>
             )}})}
 
             {props.scheme.slice(3,6).map((field,index)=>{ if (field != '') { return (
                 <Form.Group as={Row} className="justify-content-center">
-                    <Form.Label column lg={3} > {field} </Form.Label>
                     <Col lg={6}>
+                        <Form.Label > {field} </Form.Label>
                         <Form.Control
                             required={true}
                             onChange={props.onChangeFunc}
@@ -39,8 +35,8 @@ export default function CustomFields(props) {
 
             {props.scheme.slice(6,9).map((field,index)=>{ if (field != '') { return (
                 <Form.Group as={Row} className="justify-content-center">
-                    <Form.Label column lg={3} > {field} </Form.Label>
                     <Col lg={6}>
+                        <Form.Label > {field} </Form.Label>
                         <Form.Control
                             rows={5}
                             required={true}
@@ -54,8 +50,8 @@ export default function CustomFields(props) {
 
             {props.scheme.slice(9,12).map((field,index)=>{ if (field != '') { return (
                 <Form.Group as={Row} className="justify-content-center">
-                    <Form.Label column lg={3} > {field} </Form.Label>
                     <Col lg={6}>
+                        <Form.Label > {field} </Form.Label>
                         <Form.Control
                             placeholder="asdasd"
                             required={true}
@@ -70,7 +66,7 @@ export default function CustomFields(props) {
             {props.scheme.slice(12,15).map((field,index)=>{ if (field != '') { return (
                 <Form.Group as={Row} className="justify-content-center">
                     <Form.Check
-                        className="text-center"
+                        bsPrefix="text-center"
                         id={index + 12}
                         onChange={props.onChangeFunc}
                         label={field}/>
