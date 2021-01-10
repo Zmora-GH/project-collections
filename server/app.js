@@ -28,6 +28,8 @@ app.use('/api/profile', require('./routes/profile.router.js'));
 app.use('/api/themes', require('./routes/theme.router.js'));
 app.use('/api/collection', require('./routes/collection.router.js'));
 app.use('/api/tag', require('./routes/tag.router.js'));
+app.use('/api/comments', require('./routes/comments.router.js'));
+app.use('/api/items', require('./routes/items.router.js'));
 
 app.listen(process.env.PORT, () => {
     console.log(`[>  Server started on port ${process.env.PORT}  <]`);
