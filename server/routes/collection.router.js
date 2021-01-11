@@ -50,6 +50,8 @@ router.post('/create', async (req, res) => {
             user_id: user._id,
             field_mask: fields
         })
+        // TODO: user colls + coll id
+        // TODO: ОТДАВАТЬ НЕ КОЛЛ А ЮЗЕР POPULATE
         res.status(201).json({coll_id: coll._id});
    } catch (err) {
        console.log(err);

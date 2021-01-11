@@ -1,45 +1,46 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from "react-router-dom";
-import {Card, Row, Col, Image} from 'react-bootstrap';
+import {Card, Row, Col, Image, Badge, Table} from 'react-bootstrap';
 import axios from 'axios';
-//import {AuthContext} from '../core/context';
 
 import TableRowCollection from './TableRowCollection';
 
 export default function ProfileCard(props) {
-    const [userData, setUserData] = useState({
-        username: "",
-        email: "",
-        created: ""})
-
-    useEffect(() => {
-        axios.post('/api/profile', { "username": props.username})
-        .then((res)=>{
-            setUserData(res.data.userdata)
-        })
-        .catch((err)=>{console.log(err)})
-    }, [])
-
     return (
         <div>
-            <Card>
-                <Card.Header as="h5">Profile:</Card.Header>
+            <Card className="bg-dark text-light my-1">
+                <Card.Header as="h5">
+                    <span># {props.userData.username} </span>
+                    {props.userData.staff ? <Badge variant="warning">admin</Badge> : ''}
+                    <span className="float-right">{new Date(props.userData.created).toLocaleDateString()} </span>
+                </Card.Header>
                 <Card.Body>
-                    <Row><Col><Row>
-                        <Col><span>{userData.username}</span></Col>
-                    </Row><Row>
-                        <Col><span>{userData.email}</span></Col>
-                    </Row></Col><Col><Row>
-                    </Row><Row>
-                        <Col><span>JOINED</span></Col>
-                        <Col><span>{new Date(userData.created).toLocaleDateString()}</span></Col>
-                    </Row></Col><Col><Row>
-                        <Col><span>DATA ?:</span></Col>
-                        <Col><span>IMG</span></Col>
-                    </Row><Row>
-                        <Col><span>DATA ?</span></Col>
-                        <Col><span>##############</span></Col>
-                    </Row></Col></Row>
+                    <Col lg={6}>
+                    <Table size='sm' variant='dark'>
+                        <tbody>
+                            <tr>
+                                <td> Email: </td>
+                                <td>{props.userData.email} </td>
+                            </tr>
+                            <tr>
+                                <td> Joined: </td>
+                                <td> {new Date(props.userData.created).toLocaleDateString()} </td>
+                            </tr>
+                            <tr>
+                                <td> Colections: </td>
+                                <td> {props.userData.collections.length} </td>
+                            </tr>
+                            <tr>
+                                <td> Status: </td>
+                                {props.userData.status ?
+                                <td><Badge variant="danger">BANNED</Badge></td>
+                                :
+                                <td><Badge variant="success">ALIVE</Badge></td>
+                                }
+                            </tr>
+                        </tbody>
+                    </Table>
+                    </Col>
                 </Card.Body>
             </Card>
         </div>

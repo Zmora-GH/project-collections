@@ -9,35 +9,48 @@ import TableRowCollection from './TableRowCollection';
 
 export default function Profile(props) {
     const { profileUserName } = useParams()
-    const [collections, setCollections] = useState([])
     const {isAuth, isAdmin, username} = useContext(AuthContext);
+    const [profile, setProfile] = useState({
+        userdata: {
+            username: "",
+            email: "",
+            created: "",
+            collections: []
+        },
+        collections: []
+    })
 
     useEffect(() => {
         if (isAdmin || profileUserName === username) {
-            axios.post('/api/profile/collections', { "username": profileUserName})
+            axios.post('/api/profile', { "username": profileUserName})
             .then((res)=>{
-                setCollections(res.data);
+                setProfile({userdata: res.data.userdata, collections: res.data.collections})
             })
             .catch((err)=>{console.log(err)})
+        } else {
+            window.location.replace('/')
         }
 
     }, [])
-    console.log(collections);
+
     return (
         <div>
-            <ProfileCard username={profileUserName} isAuth={isAdmin || profileUserName === username}/>
-            <Card>
+            <ProfileCard userData={profile.userdata}/>
+            <Card className="bg-dark text-light my-1">
                 <Card.Header as="h5">Collections:</Card.Header>
                 <Card.Body>
-                    <Button
-                        variant="success"
-                        as="a"
-                        href= {`/collection/create/${profileUserName}`}
-                        >Create new collection</Button>
-                </Card.Body>
-                <Card.Body>
-                    <Table size="sm" striped bordered hover responsive>
+                    <Table size="sm" bordered hover responsive variant="dark">
                         <thead>
+                            <tr>
+                                <th colSpan="7">
+                                    <Button
+                                        className="my-2"
+                                        variant="outline-success"
+                                        as="a"
+                                        href={`/collection/create/${profileUserName}`}
+                                        >Create new collection</Button>
+                                </th>
+                            </tr>
                             <tr>
                                 <th></th>
                                 <th>Image</th>
@@ -49,7 +62,7 @@ export default function Profile(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            { collections.map( (coll, index) => {
+                            { profile.collections.map( (coll, index) => {
                                 return <TableRowCollection  data={coll} key={index}/>
                             })}
                         </tbody>

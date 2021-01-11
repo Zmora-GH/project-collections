@@ -1,21 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, ButtonGroup } from 'react-bootstrap';
-import {TrashFill,PenFill} from 'react-bootstrap-icons';
+import {TrashFill, PenFill, PlusSquare} from 'react-bootstrap-icons';
 
 export default function TableRowCollection(props) {
-    // TODO: delete and edit button
+    const [hover, setHover] = useState(false)
+    const editHandle = () =>{
+        // TODO: edit
+    }
+    const deleteHandle = () =>{
+        // TODO: delete
+    }
+
     return (
-        <tr>
-            <td className="ctd">
-                <ButtonGroup >
-                  <Button size="sm" variant="info" >
-                      <PenFill color="white" className="mx-2"/>
+        <tr onMouseOver={()=>{setHover(true)}} onMouseOut={()=>{setHover(false)}} >
+            <td className="ctd align-middle p-0">
+                <ButtonGroup className={` ${ hover ? '': 'invisible'}`}>
+                  <Button size="sm" variant="outline-info" onClick={editHandle}>
+                      <PenFill color="white" className=""/>
                   </Button>
-                  <Button size="sm" variant="danger" >
+                  <Button size="sm" variant="outline-success" as="a" href={ `/collection/create_item/${props.data._id}` }>
+                      <PlusSquare color="white" />
+                  </Button>
+                  <Button size="sm" variant="outline-danger" onClick={deleteHandle}>
                       <TrashFill color="white" />
-                  </Button>
-                  <Button size="sm" variant="success" as="a" href={ `/collection/create_item/${props.data._id}` }>
-                      <PenFill color="white" />
                   </Button>
                 </ButtonGroup>
             </td>
