@@ -11,7 +11,7 @@ var CollectionSchema = new Schema(
         items: [{type: Schema.Types.ObjectId, ref: 'Item'}],
         user_id: {type: Schema.Types.ObjectId, ref: 'User' },
         field_mask: [String],
-        created: {type: Date, default: Date.now},
+        created: {type: Date, default: Date.now}
     }
 );
 

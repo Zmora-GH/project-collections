@@ -75,6 +75,9 @@ export default function ItemForm() {
             data.append('image', fileCont[0]);
             const config = {headers: {'Content-Type': 'multipart/form-data'}};
             axios.post('/api/collection/image', data, config)
+            .then((res) => {
+                window.location.replace(`/collection/${collection_id}`)
+            })
             .catch((err) => { console.log(err) });
         })
         .catch((err) => { console.log(err) })

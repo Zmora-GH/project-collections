@@ -12,4 +12,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/server/storage/
+/server/storage/collections/
+/server/storage/items/

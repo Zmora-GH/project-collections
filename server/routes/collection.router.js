@@ -15,19 +15,23 @@ const fs = require('fs');
 router.post('/add', async (req, res) => {
     try {
         const {name, fields, coll_id, tags, scheme} = req.body;
-        let tagIds = [];
-        for (var i = 0; i < tags.length; i++) {
-            let tag = await Tag.updateOne({name: tags[i]}, {name: tags[i]}, {upsert: true});
-            tagIds.push(tag._id);
-        }
         const tempfields = fields.map((field, i) => { if (scheme[i]) { return {name: scheme[i], value: field}}})
         const fset = await Fieldset.create({fields: tempfields})
         const item = await Item.create({
             fieldset_id: fset._id,
             collection_id: coll_id,
-            tags_id: tagIds,
             name: name
         })
+        for (var i = 0; i < tags.length; i++) {
+            let tag = await Tag.findOne({name: tags[i]});
+            if (tag) {
+                item.tags_id.push(tag._id)
+            } else {
+                let newTag = await Tag.create({name: tags[i]})
+                item.tags_id.push(newTag._id)
+            }
+        }
+        await item.save();
         res.status(201).json({item_id: item._id});
    } catch (err) {
        console.log(err);
@@ -79,7 +83,7 @@ router.post('/image', upload.any(), async (req, res) => {
             const entity = 'items'
             const filePath = `/${entity}/${Date.now()}.${img.originalname.split('.').pop()}`
             fs.appendFileSync(`${storage}${filePath}`, img.buffer)
-            const temp = await Collection.findOneAndUpdate({_id: coll_id}, {image_url: filePath})
+            const temp = await Item.findOneAndUpdate({_id: item_id}, {image_url: filePath})
         }
         res.status(201).json({});
    } catch (err) {

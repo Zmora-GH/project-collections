@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {useParams} from "react-router-dom";
-import {Carousel, Card, Button, Col, Row, Accordion } from 'react-bootstrap';
+import {Card, Button, Col, Row} from 'react-bootstrap';
 import axios from 'axios';
 
 import Item from '../items/Item';
@@ -13,7 +13,14 @@ export default function Collection() {
 
     useEffect(()=>{
         if (items.length === 0) {
-            // TODO:  GET ITEMS GET COLLNAME
+            let params = {collection_id: collId}
+            axios.get('/api/items', {params})
+            .then((res)=>{
+                setItems(res.data);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
         }
     },[])
 
@@ -40,8 +47,9 @@ export default function Collection() {
                         <div className="border-bottom"></div>
                     </Col>
                     <Col lg={9} className="">
-                        <Row><Item /></Row>
-                        <Row><Item /></Row>
+                        { items.map((data, index) => {
+                            return <Row><Item key={index} data={data}/></Row>
+                        })}
                     </Col>
                 </Row>
             </Card.Body>

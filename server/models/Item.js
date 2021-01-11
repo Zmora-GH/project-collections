@@ -8,6 +8,7 @@ var ItemSchema = new Schema(
         collection_id: {type: Schema.Types.ObjectId, ref: 'Collection'},
         tags_id: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
         name: {type: String, required: true},
+        image_url: String,
         created: {type: Date, default: Date.now},
         like_list: [{type: Schema.Types.ObjectId, ref: 'User'}],
     }
