@@ -1,13 +1,14 @@
 import React from 'react';
 import {Card, Col, Row, Button, Badge, Table, Spinner, Tab, Tabs} from 'react-bootstrap';
 import {HandThumbsUp, TrashFill, PenFill } from 'react-bootstrap-icons';
+import ReactMarkdown from 'react-markdown'
 
 import CommentBox from '../comments/CommentBox';
+import Likes from './Likes';
 
 export default function Item(props) {
-    console.log(props.data);
     return (
-        <Card border="light" bg="dark" text="light" className="my-2 mx-auto">
+        <Card border="light" bg="dark" text="light" className="my-2 mx-auto w-100">
             <Card.Title className='p-1'>
                 <span className="mx-2">{props.data.name}</span>
                 <Button size="sm" variant="outline-danger" className="float-right mx-1 px-2">
@@ -18,8 +19,8 @@ export default function Item(props) {
                 </Button>
             </Card.Title>
             <Card.Body>
-                <Tabs defaultActiveKey="item" className="mx-auto" >
-                    <Tab eventKey="item" title="Item">
+                <Tabs defaultActiveKey="item" className="mx-auto">
+                    <Tab eventKey="item" title="Item" tabClassName="bg-dark text-light">
                         <Row className="mt-4">
                             <Col md={5}>
                                 <Card.Img
@@ -67,7 +68,9 @@ export default function Item(props) {
                                     <Row>
                                     <Col md={12} className="text-center">{f.name}</Col>
                                     <Col md={12} className="">
-                                        {f.value}
+                                        <div className="bg-light text-dark rounded p-1 my-1">
+                                            <ReactMarkdown children={f.value}/>
+                                        </div>
                                     </Col>
                                     </Row>
                                 )}
@@ -75,18 +78,18 @@ export default function Item(props) {
 
                         <Row className="mb-3">
                             <Col md={12} className="text-center">
-                                <Button variant="outline-light" className="text-center px-1">
-                                    <HandThumbsUp size={24}/> <Badge variant="light"> 935 </Badge>
-                                </Button>
+                                <Likes startCount={props.data.like_list.length} itemId={props.data._id}/>
                             </Col>
                         </Row>
+
                         <Row>
                             <Col md={12} >
                             <small className="text-muted float-right"> {new Date(props.data.created).toLocaleDateString()}</small>
                             </Col>
                         </Row>
+
                     </Tab>
-                    <Tab eventKey="comments" title="Comments">
+                    <Tab eventKey="comments" title="Comments"  tabClassName="bg-dark text-light">
                         <Card.Body>
                             <CommentBox itemId={props.data._id}/>
                         </Card.Body>

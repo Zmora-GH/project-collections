@@ -30,7 +30,13 @@ router.get('/', async (req, res) => {
 
 router.post('/like', async (req, res) => {
     try {
-        res.status(200).json({});
+        const {user_id, item_id} = req.body;
+        const item = await Item.findById(item_id);
+        if (!item.like_list.includes(user_id)) {
+            item.like_list.push(user_id)
+            await item.save();
+        }
+        res.status(200).json({likes: item.likes});
    } catch (err) {
        console.log(err);
        res.status(500).json({message: 'Oops! Error in TryCatch items.router : like'});
