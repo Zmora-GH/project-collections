@@ -2,20 +2,16 @@ import React from 'react';
 import {Card, Button, Col, Row, Image} from 'react-bootstrap';
 
 export default function CollectionPrev(props) {
-    //props or params for get id // link
-    // id
-    // image url
-    // description
-    // item count
+
     return (
         <Card
             border="light"
             bg="dark"
             text="white"
             role="button"
-            onClick={()=>{window.location.replace("/collection/3")}}
+            onClick={()=>{window.location.replace(`/collection/${props.data._id}`)}}
         >
-            <Card.Title >COLL NAME</Card.Title>
+            <Card.Title >{props.data.name}</Card.Title>
 
             <Card.Body>
                 <Row>
@@ -24,32 +20,24 @@ export default function CollectionPrev(props) {
                             rounded
                             fluid
                             variant="top"
-                            src="https://images.freeimages.com/images/large-previews/10a/coins-1239681.jpg"/>
-
+                            src={`/static/${props.data.image_url}`}/>
                     </Col>
                     <Col lg={8}>
                         <Card.Text>
-                            DESCRIPTION
-                            tags_idasd
-                            tags_idasd
-                            asdasdasdasda
-                            asdasdasdasdaloren
-                            1231231 asdas dasdasda sdasdasdasd  asdas
-                            as asd asdasdasdasdas  asdasdasdas as asdasdas asdasdasdas
-                            a as
-                             asdasdasdasdasd
-                              asdasdasdasdasd
-
+                            {props.data.description}
                         </Card.Text>
-
-
                     </Col>
                 </Row>
-
+                <Row>
+                    <Col>
+                        <span>Theme: <strong>{props.data.theme}</strong></span>
+                        <span className="float-right">Total items: <strong>{props.data.itemCount}</strong></span>
+                    </Col>
+                </Row>
             </Card.Body>
             <Card.Footer>
-                <small className="text-muted">  20-20-2020   </small>
-                <strong className="text-muted float-right "> # USERNAME </strong>
+                <small className="text-muted"> {new Date(props.data.created).toLocaleDateString()} </small>
+                <strong className="text-muted float-right "> # {props.data.users[0].username.toUpperCase()} </strong>
             </Card.Footer>
         </Card>
     )

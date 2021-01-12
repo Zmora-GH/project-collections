@@ -30,6 +30,28 @@ router.get('/', async (req, res) => {
    }
 })
 
+router.get('/largest', async (req, res) => {
+    try {
+        const colls = await Collection.aggregate([{$project: {
+            name: 1,
+            description: 1,
+            theme: 1,
+            user_id: 1,
+            created: 1,
+            image_url: 1,
+            itemCount: { $cond: { if: { $isArray: "$items" }, then: { $size: "$items" }, else: "NA"} },
+        }}])
+        .sort('-itemCount')
+        .limit(3)
+        .lookup({ from: 'users', localField: 'user_id', foreignField: '_id', as: 'users' });
+
+        res.status(200).json({largest: colls});
+   } catch (err) {
+       console.log(err);
+       res.status(500).json({message: 'Oops! Error in TryCatch items.router : get'});
+   }
+})
+
 router.post('/add', async (req, res) => {
     try {
         const {name, fields, coll_id, tags, scheme} = req.body;

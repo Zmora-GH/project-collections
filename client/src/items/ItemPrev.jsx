@@ -1,49 +1,41 @@
 import React from 'react';
-import {Card, Button, Badge, Col, Row, Image } from 'react-bootstrap';
-import {HandThumbsUp} from 'react-bootstrap-icons';
+import {Card, Badge, Row, Image } from 'react-bootstrap';
 
-export default function ItemPrev() {
-    // TODO: Редирект на страницу коллекции и якорь на конкретный итем
+import Likes from './Likes'
+
+export default function ItemPrev(props) {
     return (
         <Card
             border="light"
             bg="dark"
             text="light"
             role="button"
-            onClick={ () => { window.location.replace("/collection/3#1") } }>
+            onClick={()=>{ window.location.replace(`/collection/${props.data.collection_id}`)}}>
 
-            <Card.Title>ITEM NAME</Card.Title>
+            <Card.Title className="text-center">{props.data.name}</Card.Title>
             <Card.Body>
-                <Row>
+                <Row className="my-1">
                     <Image
                         rounded
                         fluid
                         variant="top"
-                        src="https://images.freeimages.com/images/large-previews/10a/coins-1239681.jpg"/>
+                        src={`/static/${props.data.image_url}`}/>
                 </Row>
-                <Row>
-                    <Card.Text>
-                        This is a wider card with supporting text below as a natural lead-in to
-                        additional content.
-                    </Card.Text>
-                    <Card.Text>
-                        This is a wider card with supporting text below as a natural lead-in to
-                        additional content.
-                    </Card.Text>
-                    <Badge className="mx-1" variant="light"> tag1 </Badge>
-                    <Badge className="mx-1" variant="light"> tag1 </Badge>
-                    <Badge className="mx-1" variant="light"> tag1 </Badge>
-                    <Badge className="mx-1" variant="light"> tag1 </Badge>
-                    <Badge className="mx-1" variant="light"> tag1 </Badge>
-                    <Badge className="mx-1" variant="light"> tag1 </Badge>
+                <Row className="my-1">
+                    {props.data.tags_id.map((tag, index)=>{
+                        return (
+                            <Badge
+                                as="a"
+                                href={`/items/${tag.name}`}
+                                className="mx-1 d-inline-block"
+                                variant="light">
+                                {tag.name}
+                            </Badge>)
+                    })}
                 </Row>
-
-</Card.Body>
-
+            </Card.Body>
             <Card.Footer className="text-center">
-                <Button size='sm' variant="outline-light">
-                    <HandThumbsUp size={20}/> <Badge variant="light"> 963 </Badge>
-                </Button>
+                <Likes startCount={props.data.like_list.length} itemId={props.data._id}/>
             </Card.Footer>
         </Card>
     )
