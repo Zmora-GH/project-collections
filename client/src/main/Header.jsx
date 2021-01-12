@@ -12,8 +12,7 @@ export default function Header() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="/collection/3">TEST:COLLECTION</Nav.Link>
-                    <Nav.Link href="/items/BlaBalKab">TEST:ITEMS</Nav.Link>
+                    <Nav.Link href="/">HOME</Nav.Link>
                 </Nav>
                 <Nav>
                     <Form inline>

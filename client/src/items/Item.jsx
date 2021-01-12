@@ -25,7 +25,7 @@ export default function Item(props) {
                             <Col md={5}>
                                 <Card.Img
                                     variant="top"
-                                    src={props.data.image_url || '/static/noimage.jpg'}
+                                    src={`/static/${props.data.image_url}` || '/static/noimage.jpg'}
                                     fluid
                                     rounded
                                     className="border border-secondary"

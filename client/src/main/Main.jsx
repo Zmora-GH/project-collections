@@ -1,12 +1,31 @@
-import React from 'react';
-import {CardColumns, Row, Col, Container} from 'react-bootstrap';
+import React, {useState, useEffect} from 'react';
+import {Row, Col, Container} from 'react-bootstrap';
+import axios from 'axios';
 
 import ItemPrev from '../items/ItemPrev';
 import CollectionPrev from '../collection/CollectionPrev';
 
 export default function Main() {
+    const [loading, setLoading] = useState(true)
+    const [lastItems, setlastItems] = useState()
+    const [largeColls, setLargeColls] = useState()
+    const [tagCloud, setTagCloud] = useState()
 
-    return (
+    useEffect(()=>{
+        if (!lastItems) {
+            // get
+        }
+        if (!largeColls) {
+            // get
+        }
+        if (!tagCloud) {
+            // get
+        }
+        setLoading(false)
+    }, [])
+
+    if (loading) { return ' '}
+    else { return (
         <Container fluid className="my-2 bg-dark text-light">
             <Row>
                 <Col lg={10}>
@@ -17,7 +36,7 @@ export default function Main() {
                         <Col lg={4} className="my-1"><ItemPrev /></Col>
                     </Row>
                     <Row className="mb-4 justify-content-center">
-                        <Col lg={12}><h4> Top collections an week:</h4></Col>
+                        <Col lg={12}><h4> Largest collections:</h4></Col>
                         <Col lg={12} className="my-1"><CollectionPrev /></Col>
                         <Col lg={12} className="my-1"><CollectionPrev /></Col>
                         <Col lg={12} className="my-1"><CollectionPrev /></Col>
@@ -48,5 +67,5 @@ export default function Main() {
                 </Col>
             </Row>
         </Container>
-    )
+    )}
 }

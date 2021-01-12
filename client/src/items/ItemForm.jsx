@@ -102,7 +102,7 @@ export default function ItemForm() {
         <div>
             <Card className="my-1 p-2 bg-dark text-light">
                 <Form className="bg-dark text-light" onSubmit={formSubmitHandle}>
-                    <Card.Title className="text-center mb-3"> {`Create new item for COLL: ${collection_id}`}</Card.Title>
+                    <Card.Title className="text-center my-4"> {'Create new item'}</Card.Title>
                     <Form.Row className="justify-content-center">
                         <Col lg={4}>
                             <Form.Group>

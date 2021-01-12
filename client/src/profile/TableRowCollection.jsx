@@ -29,8 +29,8 @@ export default function TableRowCollection(props) {
             <td className="ctd">
                 <img src={'/static' + props.data.image_url} height="60px"/>
             </td>
-            <td className="ctd">
-                <a className="text-decoration-none" href={`/collection/${props.data._id}`} >{props.data.name}</a>
+            <td className="ctd" as="a" href={`/collection/${props.data._id}`} >
+                <a className="text-decoration-none text-light" href={`/collection/${props.data._id}`} >{props.data.name}</a>
             </td>
             <td className="ctd">{props.data.theme}</td>
             <td className="ctd">{props.data.items.length}</td>

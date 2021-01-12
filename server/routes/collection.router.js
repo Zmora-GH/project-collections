@@ -12,10 +12,29 @@ const upload = multer()
 
 const fs = require('fs');
 
+router.get('/', async (req, res) => {
+    try {
+        const coll_id = req.query.collection_id;
+        const coll = await Collection.findById(coll_id)
+        .populate({path: 'user_id', model: User})
+        .populate({
+            path: 'items', model: Item,
+            populate: [
+                {path: 'fieldset_id', model: Fieldset},
+                {path: 'tags_id', model: Tag}
+        ]})
+        res.status(200).json(coll.toJSON());
+   } catch (err) {
+       console.log(err);
+       res.status(500).json({message: 'Oops! Error in TryCatch items.router : get'});
+   }
+})
+
 router.post('/add', async (req, res) => {
     try {
         const {name, fields, coll_id, tags, scheme} = req.body;
         const tempfields = fields.map((field, i) => { if (scheme[i]) { return {name: scheme[i], value: field}}})
+
         const fset = await Fieldset.create({fields: tempfields})
         const item = await Item.create({
             fieldset_id: fset._id,
@@ -32,6 +51,9 @@ router.post('/add', async (req, res) => {
             }
         }
         await item.save();
+        const coll = await Collection.findById(coll_id);
+        coll.items.push(item._id);
+        coll.save()
         res.status(201).json({item_id: item._id});
    } catch (err) {
        console.log(err);
@@ -50,8 +72,8 @@ router.post('/create', async (req, res) => {
             user_id: user._id,
             field_mask: fields
         })
-        // TODO: user colls + coll id
-        // TODO: ОТДАВАТЬ НЕ КОЛЛ А ЮЗЕР POPULATE
+        user.collections.push(coll._id);
+        await user.save();
         res.status(201).json({coll_id: coll._id});
    } catch (err) {
        console.log(err);
