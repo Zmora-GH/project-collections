@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Form, Col, Row,Container} from 'react-bootstrap';
 
 export default function CustomFields(props) {
     return (
         <Container className="my-2">
 
-            {props.scheme.slice(0,3).map((field,index)=>{ if (field != '') { return (
+            {props.scheme.slice(0,3).map((field,index)=>{ if (field !== '') { return (
                 <Form.Group as={Row} className="justify-content-center">
                     <Col lg={6}>
                         <Form.Label > {field} </Form.Label>
@@ -20,7 +20,7 @@ export default function CustomFields(props) {
                 </Form.Group>
             )}})}
 
-            {props.scheme.slice(3,6).map((field,index)=>{ if (field != '') { return (
+            {props.scheme.slice(3,6).map((field,index)=>{ if (field !== '') { return (
                 <Form.Group as={Row} className="justify-content-center">
                     <Col lg={6}>
                         <Form.Label > {field} </Form.Label>
@@ -33,7 +33,7 @@ export default function CustomFields(props) {
                 </Form.Group>
             )}})}
 
-            {props.scheme.slice(6,9).map((field,index)=>{ if (field != '') { return (
+            {props.scheme.slice(6,9).map((field,index)=>{ if (field !== '') { return (
                 <Form.Group as={Row} className="justify-content-center">
                     <Col lg={6}>
                         <Form.Label > {field} </Form.Label>
@@ -48,7 +48,7 @@ export default function CustomFields(props) {
                 </Form.Group>
             )}})}
 
-            {props.scheme.slice(9,12).map((field,index)=>{ if (field != '') { return (
+            {props.scheme.slice(9,12).map((field,index)=>{ if (field !== '') { return (
                 <Form.Group as={Row} className="justify-content-center">
                     <Col lg={6}>
                         <Form.Label > {field} </Form.Label>
@@ -63,7 +63,7 @@ export default function CustomFields(props) {
                 </Form.Group>
             )}})}
 
-            {props.scheme.slice(12,15).map((field,index)=>{ if (field != '') { return (
+            {props.scheme.slice(12,15).map((field,index)=>{ if (field !== '') { return (
                 <Form.Group as={Row} className="justify-content-center">
                     <Form.Check
                         bsPrefix="text-center"

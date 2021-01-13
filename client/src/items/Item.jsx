@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Card, Col, Row, Button, Badge, Table, Spinner, Tab, Tabs} from 'react-bootstrap';
-import {HandThumbsUp, TrashFill, PenFill } from 'react-bootstrap-icons';
+import {Card, Col, Row, Button, Badge, Table, Tab, Tabs} from 'react-bootstrap';
+import {TrashFill, PenFill } from 'react-bootstrap-icons';
 import ReactMarkdown from 'react-markdown'
 
 import CommentBox from '../comments/CommentBox';
@@ -8,8 +8,9 @@ import Likes from './Likes';
 
 export default function Item(props) {
     const [key, setKey] = useState('item');
-    
+
     return (
+        <Row>
         <Card border="light" bg="dark" text="light" className="my-2 mx-auto w-100">
             <Card.Title className='p-1'>
                 <span className="mx-2">{props.data.name}</span>
@@ -43,19 +44,19 @@ export default function Item(props) {
 
                                             {props.data.fieldset_id.fields.slice(0, 6).map((f, i)=>{
                                                 if (f) {return(
-                                                    <tr><td className="font-weight-bold">{f.name}</td>
+                                                    <tr key={i}><td className="font-weight-bold">{f.name}</td>
                                                     <td>{f.value}</td></tr>
                                             )}})}
 
                                             {props.data.fieldset_id.fields.slice(9, 12).map((f, i)=>{
                                                 if (f) {return(
-                                                    <tr><td className="font-weight-bold">{f.name}</td>
+                                                    <tr key={i}><td className="font-weight-bold">{f.name}</td>
                                                     <td>{new Date(f.value).toLocaleDateString()}</td></tr>
                                             )}})}
 
                                             {props.data.fieldset_id.fields.slice(12, 15).map((f, i)=>{
                                                 if (f) {return(
-                                                    <tr><td className="font-weight-bold">{f.name}</td>
+                                                    <tr key={i}><td className="font-weight-bold">{f.name}</td>
                                                     <td>{f.value ? 'Yes': 'No'}</td></tr>
                                             )}})}
 
@@ -67,7 +68,7 @@ export default function Item(props) {
 
                             {props.data.fieldset_id.fields.slice(6, 9).map((f, i)=>{
                                 if (f) {return(
-                                    <Row>
+                                    <Row key={i}>
                                     <Col md={12} className="text-center">{f.name}</Col>
                                     <Col md={12} className="">
                                         <div className="bg-light text-dark rounded p-1 my-1">
@@ -99,5 +100,6 @@ export default function Item(props) {
                 </Tabs>
             </Card.Body>
         </Card>
+    </Row>
     )
 }

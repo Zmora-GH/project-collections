@@ -12,7 +12,7 @@ export default function Collection() {
     const [loading, setLoading] = useState(true)
     const {isAuth, isAdmin} = useContext(AuthContext);
     const [collection, setCollection] = useState()
-
+    /// o w n e r
     useEffect(()=>{
         if (!collection) {
             let params = {collection_id: collId}
@@ -30,14 +30,14 @@ export default function Collection() {
     if (loading){return ''} else {
     return (
         <Card className="bg-dark text-light m-1 p-2">
-            {isAuth || isAdmin ?     /////////////////////////////////////// collection.user_id
+            {isAuth || isAdmin ?     /////////////////////////////////////// collection.user_id  and in item
                 <Card.Title>
                     <span> {collection.name} </span>
                     <Button
                         size="sm"
                         variant="outline-light"
-                        className="float-right mx-1 px-2" o
-                        nClick={()=>{}}>
+                        className="float-right mx-1 px-2"
+                        onClick={()=>{}}>
                         Edit Collection
                     </Button>
                     <Button
@@ -56,7 +56,7 @@ export default function Collection() {
                 <Row>
                     <Col lg={3}>
                         <Card.Img src={`/static/${collection.image_url}`}/>
-                        <strong className=""># {collection.user_id.username.toUpperCase()} </strong>
+                        <strong ># {collection.user_id.username.toUpperCase()} </strong>
                         {collection.user_id.status ? <Badge variant="danger">Banned</Badge>: ''}
                         <Badge variant="warning">admin</Badge>
                         <br/>
@@ -65,9 +65,9 @@ export default function Collection() {
                         <small><ReactMarkdown children={collection.description}/></small>
                         <div className="border-bottom"></div>
                     </Col>
-                    <Col lg={9} className="">
+                    <Col lg={9}>
                         { collection.items.map((data, index) => {
-                            return <Row><Item key={index} data={data}/></Row>
+                            return <Item key={index} data={data}/>
                         })}
                     </Col>
                 </Row>

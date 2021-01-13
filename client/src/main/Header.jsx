@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Navbar, NavDropdown, Nav, FormControl, Button, Form, InputGroup} from 'react-bootstrap';
 import {Search} from 'react-bootstrap-icons';
 
@@ -6,6 +6,17 @@ import {AuthContext} from '../core/context';
 
 export default function Header() {
     const {isAuth, isAdmin, username} = useContext(AuthContext);
+    const [searchData, setSearchData] = useState()
+
+    const searchHandle = (event)=>{
+        setSearchData(event.target.value)
+    }
+
+    const submitHandle = (event)=>{
+        event.preventDefault();
+         window.location.replace(`/search/${searchData}`);
+    }
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Navbar.Brand href="/" className="decor-brand-text">Collections</Navbar.Brand>
@@ -15,15 +26,18 @@ export default function Header() {
                     <Nav.Link href="/">HOME</Nav.Link>
                 </Nav>
                 <Nav>
-                    <Form inline>
+                    <Form inline onSubmit={submitHandle}>
                         <InputGroup className="mx-3">
                             <FormControl
+                                onChange={searchHandle}
                                 placeholder="Search"
                                 type="text"
                                 name="search"
                                 className="bg-dark border-secondary text-light"/>
                             <InputGroup.Append>
-                                <Button variant="outline-secondary"><Search className="text-light mx-1" /></Button>
+                                <Button variant="outline-secondary" type="submit">
+                                    <Search className="text-light" />
+                                </Button>
                             </InputGroup.Append>
                         </InputGroup>
                     </Form>

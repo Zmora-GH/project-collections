@@ -1,9 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useParams} from "react-router-dom";
-import {Card, Row, Col, Image, Badge, Table} from 'react-bootstrap';
-import axios from 'axios';
-
-import TableRowCollection from './TableRowCollection';
+import React from 'react';
+import {Card, Col, Badge, Table} from 'react-bootstrap';
 
 export default function ProfileCard(props) {
     return (

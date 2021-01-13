@@ -1,18 +1,26 @@
 import React, {useState, useEffect} from 'react';
-import {Card, Row, Col} from 'react-bootstrap';
-import {useParams} from "react-router-dom";
+import {Card, Row} from 'react-bootstrap';
+import {useParams, useLocation} from "react-router-dom";
 import axios from 'axios';
 
 import ItemPrev from './ItemPrev';
 
 export default function ItemList() {
     const [items, setItems] = useState([])
-    const {tag_name} = useParams();
+    const {subject} = useParams();
+    const location = useLocation();
 
     useEffect(()=>{
+        let params, address;
+        if (location.pathname.startsWith('/search')) {
+            params = {search: subject};
+            address = '/api/items/search';
+        } else {
+            params = {tag_name: subject};
+            address = '/api/items/withtag';
+        }
         if (items.length === 0) {
-            let params = {tag_name: tag_name}
-            axios.get('/api/items/withtag', {params})
+            axios.get(address, {params})
             .then((res)=>{
                 setItems(res.data.items)
             })
@@ -22,13 +30,11 @@ export default function ItemList() {
 
     return (
         <Card className="my-1 pt-3 border-secondary bg-dark text-light">
-            <Card.Title className="ml-3">{`All items with "${tag_name}":`}</Card.Title>
+            <Card.Title className="ml-3">{`All items with "${subject}":`}</Card.Title>
             <Card.Body>
                 <Row>
                 {items.map((item, index) => { return (
-                    <Col lg={4}>
-                        <ItemPrev data={item} key={index}/>
-                    </Col>
+                    <ItemPrev data={item} key={index}/>
                 )})}
                 </Row>
             </Card.Body>

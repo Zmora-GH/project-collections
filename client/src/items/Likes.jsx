@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {Button, Badge, Overlay, Popover, OverlayTrigger} from 'react-bootstrap';
+import {Button, Badge, Popover, OverlayTrigger} from 'react-bootstrap';
 import {HandThumbsUp} from 'react-bootstrap-icons';
 import axios from 'axios';
 
@@ -15,6 +15,8 @@ export default function Likes(props) {
             axios.post('/api/items/like', {user_id: userId, item_id: props.itemId})
             .then((res)=>{setLikes(res.data.likes)})
             .catch((err)=>{ console.log(err) })
+        } else {
+            setShow(true);
         }
     }
 
@@ -25,7 +27,7 @@ export default function Likes(props) {
     )
 
     return (
-        <OverlayTrigger trigger="click" placement="right" overlay={popover} show={!isAuth}>
+        <OverlayTrigger trigger="click" placement="right" overlay={popover} show={show}>
             <Button variant="outline-light" className="text-center px-1" onClick={likeHandle}>
                 <HandThumbsUp size={24}/> <Badge variant="light"> {likes} </Badge>
             </Button>

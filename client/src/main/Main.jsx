@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Row, Col, Container, Badge} from 'react-bootstrap';
+import {Row, Col, Container, Badge, Jumbotron} from 'react-bootstrap';
 import axios from 'axios';
 
 import ItemPrev from '../items/ItemPrev';
@@ -38,16 +38,29 @@ export default function Main() {
         <Container fluid className="my-2 bg-dark text-light">
             <Row>
                 <Col lg={10}>
+                    <Row>
+                        <Jumbotron className="w-100 bg-dark text-light text-center">
+                            <Container>
+                                <h1>
+                                    <span> Welcom to </span>
+                                    <strong className="decor-brand-text">Collections</strong>
+                                </h1>
+                                <p>
+                                    Here is a small message for visitors about this site.
+                                </p>
+                            </Container>
+                        </Jumbotron>
+                    </Row>
                     <Row className="mb-4 justify-content-center">
                         <Col lg={12}><h4> Last added items:</h4></Col>
                         {lastItems ? lastItems.map((item, index)=>{
-                            return (<Col lg={4} className="my-1"><ItemPrev data={item} key={index}/></Col>)
+                            return (<ItemPrev data={item} key={index}/>)
                         }):""}
                     </Row>
                     <Row className="mb-4 justify-content-center">
                         <Col lg={12}><h4> Largest collections:</h4></Col>
                             {largeColls ? largeColls.map((coll, index)=>{
-                                return (<Col lg={12} className="my-1"><CollectionPrev data={coll} key={index}/></Col>)
+                                return (<CollectionPrev data={coll} key={index}/>)
                             }):""}
                     </Row>
                 </Col>
@@ -57,6 +70,7 @@ export default function Main() {
                         {tagCloud ? tagCloud.map((tag, index)=>{
                             return (
                                 <Badge
+                                    key={index}
                                     as="a"
                                     href={`/items/${tag.name}`}
                                     className="mx-1 d-inline-block"

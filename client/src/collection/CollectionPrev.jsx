@@ -1,9 +1,10 @@
 import React from 'react';
-import {Card, Button, Col, Row, Image} from 'react-bootstrap';
+import {Card, Col, Row, Image} from 'react-bootstrap';
 
 export default function CollectionPrev(props) {
 
     return (
+        <Col lg={12} className="my-1">
         <Card
             border="light"
             bg="dark"
@@ -40,5 +41,6 @@ export default function CollectionPrev(props) {
                 <strong className="text-muted float-right "> # {props.data.users[0].username.toUpperCase()} </strong>
             </Card.Footer>
         </Card>
+    </Col>
     )
 }

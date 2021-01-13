@@ -41,6 +41,19 @@ router.get('/withtag', async (req, res) => {
    }
 })
 
+router.get('/search', async (req, res) => {
+    try {
+        const search = req.query.search;
+        ///////////////////////////////////////////////// search here
+        console.log(`SEARCH: ${search}`);
+        /////////////////////////////////////////////////
+        res.status(200).json({items: []});
+   } catch (err) {
+       console.log(err);
+       res.status(500).json({message: 'Oops! Error in TryCatch items.router : get'});
+   }
+})
+
 router.post('/like', async (req, res) => {
     try {
         const {user_id, item_id} = req.body;

@@ -1,10 +1,11 @@
 import React from 'react';
-import {Card, Badge, Row, Image } from 'react-bootstrap';
+import {Card, Badge, Row, Image, Col } from 'react-bootstrap';
 
 import Likes from './Likes'
 
 export default function ItemPrev(props) {
     return (
+        <Col lg={4} className="my-1">
         <Card
             border="light"
             bg="dark"
@@ -25,6 +26,7 @@ export default function ItemPrev(props) {
                     {props.data.tags_id.map((tag, index)=>{
                         return (
                             <Badge
+                                key={index}
                                 as="a"
                                 href={`/items/${tag.name}`}
                                 className="mx-1 d-inline-block"
@@ -38,5 +40,6 @@ export default function ItemPrev(props) {
                 <Likes startCount={props.data.like_list.length} itemId={props.data._id}/>
             </Card.Footer>
         </Card>
+        </Col>
     )
 }

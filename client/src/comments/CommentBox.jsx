@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Row, Col, Spinner} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 
 import Comment from './Comment';

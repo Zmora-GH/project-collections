@@ -87,7 +87,7 @@ export default function Admin() {
                                 <th>PROFILE LINK</th>
                             </tr>
                         </thead>
-                        <tbody>{userList.map(user => <TableRow key={user.id} data={user}/>)}</tbody>
+                        <tbody>{userList.map((user, index) => <TableRow key={index} data={user}/>)}</tbody>
                     </Table>
                 </Card.Body>
             </Card>

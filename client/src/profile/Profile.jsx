@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {useParams} from "react-router-dom";
-import {Table, Button, Card, Row, Col} from 'react-bootstrap';
+import {Table, Button, Card} from 'react-bootstrap';
 import axios from 'axios';
 import {AuthContext} from '../core/context';
 
@@ -9,7 +9,7 @@ import TableRowCollection from './TableRowCollection';
 
 export default function Profile(props) {
     const { profileUserName } = useParams()
-    const {isAuth, isAdmin, username} = useContext(AuthContext);
+    const {isAdmin, username} = useContext(AuthContext);
     const [profile, setProfile] = useState({
         userdata: {
             username: "",

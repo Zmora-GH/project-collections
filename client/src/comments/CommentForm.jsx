@@ -20,6 +20,7 @@ export default function CommentForm(props) {
         })
         .catch((err)=>{console.log(err)})
     }
+    if (!isAuth) { return ''} else {
     return (
         <Toast className="bg-dark text-light mx-auto">
             <Form onSubmit={submitHandle}>
@@ -39,5 +40,5 @@ export default function CommentForm(props) {
                     > Submit </Button>
             </Form>
         </Toast>
-    )
+    )}
 }

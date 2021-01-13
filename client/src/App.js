@@ -36,7 +36,8 @@ function App() {
                     <Route path="/profile/:profileUserName" exact> <Profile /> </Route>
                     {isAdmin ? <Route path="/admin" exact> <Admin /> </Route> : ''}
                     <Route path="/collection/:collId" exact> <Collection /> </Route>
-                    <Route path="/items/:tag_name" exact> <ItemList /> </Route>
+                    <Route path="/items/:subject" exact> <ItemList /> </Route>
+                    <Route path="/search/:subject" exact> <ItemList /> </Route>
                     <Route path="/collection/create/:profile_name" exact> <CollectionForm /> </Route>
                     <Route path="/collection/create_item/:collection_id"> <ItemForm /> </Route>
                     <Route path="/" exact> <Main /> </Route>

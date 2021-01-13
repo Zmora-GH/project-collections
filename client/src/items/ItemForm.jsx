@@ -1,16 +1,14 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Card, Form, Button, Col} from 'react-bootstrap';
 import {useParams} from "react-router-dom";
 import Tags from "@yaireo/tagify/dist/react.tagify"
 import axios from 'axios';
 
-import {AuthContext} from '../core/context';
 import DropImageBox from '../drops/DropImageBox';
 import CustomFields from './CustomFields';
 
 export default function ItemForm() {
     const {collection_id} = useParams();
-    const {userId} = useContext(AuthContext);
     const [scheme, setScheme] = useState([])
     const [inputTags, setInputTags] = useState([])
     const [whiteList, setWhiteList] = useState()

@@ -1,16 +1,14 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import FormData from 'form-data'
 import {Card, Form, Button, Col} from 'react-bootstrap';
 import axios from 'axios';
 
 import Field from './Field'
-import {AuthContext} from '../core/context';
 import DropImageBox from '../drops/DropImageBox';
 
 export default function CollectionForm() {
     const {profile_name} = useParams(); // Перед этим возникает 404 // замменитть на пропс + переход после submit
-    const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({name: "", theme: "", discription: ""})
     const [themes, setThemes] = useState([])
     const [fields, setFields] = useState(new Array(15).fill(''))
