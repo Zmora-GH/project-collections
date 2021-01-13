@@ -1,17 +1,17 @@
 import React from 'react';
 import {Toast} from 'react-bootstrap';
 
-export default function Comment() {
+export default function Comment(props) {
     return (
         <Toast className="bg-dark mx-auto">
-            <Toast.Header closeButton={false} className="bg-dark">
-                <strong className="mr-auto"># USERNAME</strong>
-                <small>20 20 20 15 15 15</small>
+            <Toast.Header closeButton={false} className="bg-dark text-light">
+                <span className="w-100">
+                <span className="float-right text-muted">{ new Date(props.data.created).toLocaleDateString()}</span>
+                <strong className="float-left"># {props.data.user.username.toUpperCase()}</strong>
+                </span>
             </Toast.Header>
             <Toast.Body>
-                Hello, world! This is a toast message.
-                Hello, world! This is a toast message.
-                Hello, world! This is a toast message.
+                {props.data.text}
             </Toast.Body>
         </Toast>
     )

@@ -28,6 +28,19 @@ router.get('/', async (req, res) => {
    }
 })
 
+router.get('/withtag', async (req, res) => {
+    try {
+        const tag_name = req.query.tag_name;
+        const tag = await Tag.findOne({name: tag_name})
+        const items = await Item.find({tags_id: {$in: [ tag._id ]}})
+        .populate({path: 'tags_id', model: Tag})
+        res.status(200).json({items: items});
+   } catch (err) {
+       console.log(err);
+       res.status(500).json({message: 'Oops! Error in TryCatch items.router : get'});
+   }
+})
+
 router.post('/like', async (req, res) => {
     try {
         const {user_id, item_id} = req.body;

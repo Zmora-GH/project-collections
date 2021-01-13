@@ -4,9 +4,10 @@ var Schema = mongoose.Schema;
 
 var CommentSchema = new Schema(
     {
-        user_id: {type: Schema.Types.ObjectId, ref: 'User' },
+        user: {type: Schema.Types.ObjectId, ref: 'User' },
+        item: {type: Schema.Types.ObjectId, ref: 'Item' },
         created: {type: Date, default: Date.now},
-        message: {type: String}
+        text: {type: String}
     }
 );
 

@@ -1,13 +1,30 @@
-import React from 'react';
-import {ListGroup, Form, Button} from 'react-bootstrap';
+import React, {useContext, useState} from 'react';
+import {Form, Button, Toast} from 'react-bootstrap';
+import {AuthContext} from '../core/context';
+import axios from 'axios';
 
-export default function CommentForm() {
+export default function CommentForm(props) {
+    const {isAuth, userId} = useContext(AuthContext);
+    const [comment, setComment] = useState({itemId: props.itemId, userId: userId, text: ''})
+
+    const changeHandle = (event)=>{
+         setComment({...comment, text: event.target.value})
+    }
+
+    const submitHandle = (event)=>{
+        event.preventDefault();
+        event.target.reset()
+        axios.post('/api/comments/add', comment)
+        .then((res)=>{
+            props.onSubmitGetComment()
+        })
+        .catch((err)=>{console.log(err)})
+    }
     return (
-        <ListGroup.Item
-            as="li"
-            className="bg-dark text-light comment-item mb-5 mx-auto">
-            <Form>
+        <Toast className="bg-dark text-light mx-auto">
+            <Form onSubmit={submitHandle}>
                 <Form.Control
+                    onChange={changeHandle}
                     as="textarea"
                     rows={3}
                     placeholder="Your comment ..."
@@ -21,6 +38,6 @@ export default function CommentForm() {
                     className="float-right"
                     > Submit </Button>
             </Form>
-        </ListGroup.Item>
+        </Toast>
     )
 }

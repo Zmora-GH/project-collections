@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Card, Col, Row, Button, Badge, Table, Spinner, Tab, Tabs} from 'react-bootstrap';
 import {HandThumbsUp, TrashFill, PenFill } from 'react-bootstrap-icons';
 import ReactMarkdown from 'react-markdown'
@@ -7,6 +7,8 @@ import CommentBox from '../comments/CommentBox';
 import Likes from './Likes';
 
 export default function Item(props) {
+    const [key, setKey] = useState('item');
+    
     return (
         <Card border="light" bg="dark" text="light" className="my-2 mx-auto w-100">
             <Card.Title className='p-1'>
@@ -19,7 +21,7 @@ export default function Item(props) {
                 </Button>
             </Card.Title>
             <Card.Body>
-                <Tabs defaultActiveKey="item" className="mx-auto">
+                <Tabs activeKey={key} className="mx-auto" onSelect={(k) => setKey(k)}>
                     <Tab eventKey="item" title="Item" tabClassName="bg-dark text-light">
                         <Row className="mt-4">
                             <Col md={5}>
@@ -91,7 +93,7 @@ export default function Item(props) {
                     </Tab>
                     <Tab eventKey="comments" title="Comments"  tabClassName="bg-dark text-light">
                         <Card.Body>
-                            <CommentBox itemId={props.data._id}/>
+                            <CommentBox itemId={props.data._id} isOpen={(key === 'comments')}/>
                         </Card.Body>
                     </Tab>
                 </Tabs>
