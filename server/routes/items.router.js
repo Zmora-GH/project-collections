@@ -1,6 +1,8 @@
 const {Router} = require('express');
 const Item = require('../models/Item');
 const Tag = require('../models/Tag');
+const Collection = require('../models/Item');
+const Comment = require('../models/Tag');
 const Fieldset = require('../models/Fieldset');
 
 const router = Router();
@@ -44,10 +46,14 @@ router.get('/withtag', async (req, res) => {
 router.get('/search', async (req, res) => {
     try {
         const search = req.query.search;
-        ///////////////////////////////////////////////// search here
-        console.log(`SEARCH: ${search}`);
-        /////////////////////////////////////////////////
-        res.status(200).json({items: []});
+        /// можно пробнуть отдельный поиск по схемам
+        const items = await Item.find()
+        .populate({path: 'tags_id', model: Tag})
+        .populate({path: 'comment', model: Comment})
+        .populate({path: 'collection_id', model: Collection})
+        .find({$text: {$search: search}})
+        console.log('Search: I = ', items.length);
+        res.status(200).json({items: items});
    } catch (err) {
        console.log(err);
        res.status(500).json({message: 'Oops! Error in TryCatch items.router : get'});

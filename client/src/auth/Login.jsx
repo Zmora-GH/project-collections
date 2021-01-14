@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import {Form, Button, Card} from 'react-bootstrap';
 import axios from 'axios';
 
+import GoogleAuth from './GoogleAuth';
+import YandexAuth from './YandexAuth';
+
 export default function Login() {
     const [isLoading, setLoading] = useState(false);
     const [formData, setFormData] = useState({username: "", password: ""})
@@ -46,8 +49,7 @@ export default function Login() {
                                 {isLoading ? 'Loading…' : 'Sign In'}
                             </Button>
                             <span className="mx-2" >or</span>
-                            <Button className="mx-1"variant="info" type="submit"> V </Button>
-                            <Button className="mx-1"variant="info" type="submit"> G </Button>
+                            <GoogleAuth />
                         </div>
                     </Form>
                 </Card.Body>

@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var ThemeSchema = new Schema(
     {
-        name: {type: String, required: true, max: 32}
+        name: {type: String, required: true, max: 32, text: true}
     }
 );
 

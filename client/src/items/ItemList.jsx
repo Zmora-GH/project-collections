@@ -33,9 +33,9 @@ export default function ItemList() {
             <Card.Title className="ml-3">{`All items with "${subject}":`}</Card.Title>
             <Card.Body>
                 <Row>
-                {items.map((item, index) => { return (
+                {items.length ? items.map((item, index) => { return (
                     <ItemPrev data={item} key={index}/>
-                )})}
+                )}) : <span className="mx-auto my-4">{" There's nothing here ¯\\_(ツ)_/¯ "}</span> }
                 </Row>
             </Card.Body>
         </Card>

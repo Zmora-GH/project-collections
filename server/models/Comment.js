@@ -7,7 +7,7 @@ var CommentSchema = new Schema(
         user: {type: Schema.Types.ObjectId, ref: 'User' },
         item: {type: Schema.Types.ObjectId, ref: 'Item' },
         created: {type: Date, default: Date.now},
-        text: {type: String}
+        text: {type: String, text : true}
     }
 );
 
