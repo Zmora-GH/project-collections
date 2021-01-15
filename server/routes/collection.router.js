@@ -114,6 +114,17 @@ router.post('/scheme', async (req, res) => {
    }
 })
 
+router.post('/delete', async (req, res) => {
+    try {
+        const coll_id = req.body.coll_id
+        await Collection.findByIdAndDelete(coll_id)
+        res.status(200).json({});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({message: 'Oops! Error in TryCatch users.router'});
+    }
+})
+
 router.post('/image', upload.any(), async (req, res) => {
     try {
         const coll_id = req.body.coll_id

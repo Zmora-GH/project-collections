@@ -10,9 +10,9 @@ import {AuthContext} from '../core/context';
 export default function Collection() {
     const {collId} = useParams();
     const [loading, setLoading] = useState(true)
-    const {isAuth, isAdmin} = useContext(AuthContext);
+    const {isAuth, isAdmin, userId} = useContext(AuthContext);
     const [collection, setCollection] = useState()
-    /// o w n e r
+
     useEffect(()=>{
         if (!collection) {
             let params = {collection_id: collId}
@@ -30,7 +30,7 @@ export default function Collection() {
     if (loading){return ''} else {
     return (
         <Card className="bg-dark text-light m-1 p-2">
-            {isAuth || isAdmin ?     /////////////////////////////////////// collection.user_id  and in item
+            {isAdmin || userId===collection.user_id ?
                 <Card.Title>
                     <span> {collection.name} </span>
                     <Button
@@ -67,7 +67,7 @@ export default function Collection() {
                     </Col>
                     <Col lg={9}>
                         { collection.items.map((data, index) => {
-                            return <Item key={index} data={data}/>
+                            return <Item key={index} data={data} owner={isAdmin || userId===collection.user_id}/>
                         })}
                     </Col>
                 </Row>

@@ -11,10 +11,11 @@ export default function ItemPrev(props) {
             bg="dark"
             text="light"
             role="button"
-            onClick={()=>{ window.location.replace(`/collection/${props.data.collection_id}`)}}>
-
+            >
             <Card.Title className="text-center">{props.data.name}</Card.Title>
-            <Card.Body>
+            <Card.Body
+                onClick={()=>{ window.location.replace(`/collection/${props.data.collection_id}`)}}
+                >
                 <Row className="my-1">
                     <Image
                         rounded
