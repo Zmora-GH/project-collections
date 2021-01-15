@@ -3,6 +3,7 @@ import {Card, Col, Row, Button, Badge, Table, Tab, Tabs} from 'react-bootstrap';
 import {TrashFill, PenFill } from 'react-bootstrap-icons';
 import ReactMarkdown from 'react-markdown'
 import {AuthContext} from '../core/context';
+import axios from 'axios';
 
 import CommentBox from '../comments/CommentBox';
 import Likes from './Likes';
@@ -12,7 +13,7 @@ export default function Item(props) {
     const {isAdmin, userId} = useContext(AuthContext);
 
     const deleteHandle = ()=>{
-        // delete
+        axios.post('/api/items/delete', {item_id: props.data._id})
     }
 
     return (

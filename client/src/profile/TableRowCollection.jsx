@@ -9,7 +9,7 @@ export default function TableRowCollection(props) {
         // TODO: edit
     }
     const deleteHandle = () =>{
-        // TODO: delete
+        axios.post('/api/collection/delete', {coll_id: props.data._id})
     }
 
     return (
