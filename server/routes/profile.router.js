@@ -5,6 +5,8 @@ const Theme = require('../models/Theme');
 
 const router = Router();
 
+
+// TODO: post --> get
 router.post('/', async (req, res) => {
     try {
         const username = req.body.username;
@@ -14,6 +16,24 @@ router.post('/', async (req, res) => {
    } catch (err) {
        console.log(err);
        res.status(500).json({message: 'Oops! Error in TryCatch profile.router : post /'});
+   }
+})
+
+router.post('/colormode', async (req, res) => {
+    try {
+        res.status(200).json({});
+   } catch (err) {
+       console.log(err);
+       res.status(500).json({message: 'Oops! Error in TryCatch profile.router : colormode /'});
+   }
+})
+
+router.post('/lang', async (req, res) => {
+    try {
+        res.status(200).json({});
+   } catch (err) {
+       console.log(err);
+       res.status(500).json({message: 'Oops! Error in TryCatch profile.router : lang /'});
    }
 })
 

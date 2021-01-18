@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {Form, Button, Card} from 'react-bootstrap';
 import axios from 'axios';
 
+import GoogleAuth from './GoogleAuth';
+
 export default function Signup() {
     const [isLoading, setLoading] = useState(false);
     const [formData, setFormData] = useState({email: "", username: "", password: ""})
@@ -44,9 +46,13 @@ export default function Signup() {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" name="password" onChange={handleChange}/>
                         </Form.Group>
-                        <Button variant="success" type="submit" disabled={isLoading}>
-                            {isLoading ? 'Loading…' : 'Create an Account'}
-                        </Button>
+                        <Form.Group>
+                            <Button size="sm" className="my-1 btn-block" variant="success" type="submit" disabled={isLoading}>
+                                {isLoading ? 'Loading…' : 'Create an Account'}
+                            </Button>
+                            <div> or ... </div>
+                            <GoogleAuth setLoadingState={setLoading}/>
+                        </Form.Group>
                     </Form>
                 </Card.Body>
 

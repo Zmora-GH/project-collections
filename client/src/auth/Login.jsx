@@ -44,13 +44,14 @@ export default function Login() {
                                 <span id="error-msg-js"></span>
                             </Form.Text>
                         </Form.Group>
-                        <div>
-                            <Button className="mx-1"variant="success" type="submit" disabled={isLoading}>
+                        <Form.Group >
+                            <Button size="sm" className="my-1 btn-block" variant="success" type="submit" disabled={isLoading}>
                                 {isLoading ? 'Loading…' : 'Sign In'}
                             </Button>
-                            <span className="mx-2" >or</span>
-                            <GoogleAuth />
-                        </div>
+                            <div> or ... </div>
+                            <GoogleAuth setLoadingState={setLoading}/>
+
+                        </Form.Group>
                     </Form>
                 </Card.Body>
             </Card>

@@ -5,7 +5,9 @@ export const AuthContext = createContext({
     isAuth: false,
     isAdmin: false,
     userId: null,
-    token: null
+    token: null,
+    colormode: "light",
+    lang: "en"
 });
 
 export const SomeContext = createContext({

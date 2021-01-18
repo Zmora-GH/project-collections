@@ -17,32 +17,44 @@ import ItemForm from './items/ItemForm';
 import {AuthContext} from './core/context';
 
 function App() {
-    let [isAuth, isAdmin, userId, username] = [false, false, null, null]
+    let [isAuth, isAdmin, userId, username, colormode, lang] = [false, false, null, null, "light", "en"]
     const data = JSON.parse(localStorage.getItem('userData'))
     if (data && data.token) {
         isAuth = true;
-        isAdmin = data.staff;
-        userId = data.id;
-        username = data.username;
+        isAdmin = data.user.staff;
+        userId = data.user._id;
+        username = data.user.username;
+        colormode = data.user.colormode;
+        lang = data.user.lang;
     }
     return (
-        <AuthContext.Provider value={{ isAuth, isAdmin, username, userId}}>
+        <AuthContext.Provider value={{ isAuth, isAdmin, username, userId, colormode, lang}}>
         <Router>
             <div className="container">
                 <Header />
-                <Switch>
-                    <Route path="/login" exact> <Login /> </Route>
-                    <Route path="/signup" exact> <Signup /> </Route>
-                    <Route path="/profile/:profileUserName" exact> <Profile /> </Route>
-                    {isAdmin ? <Route path="/admin" exact> <Admin /> </Route> : ''}
-                    {isAuth ?  <Route path="/collection/create/:profile_name" exact> <CollectionForm /> </Route> : ''}
-                    {isAuth ?  <Route path="/collection/create_item/:collection_id"> <ItemForm /> </Route> : ''}
-                    <Route path="/collection/:collId" exact> <Collection /> </Route>
-                    <Route path="/items/:subject" exact> <ItemList /> </Route>
-                    <Route path="/search/:subject" exact> <ItemList /> </Route>
-                    <Route path="/" exact> <Main /> </Route>
-                    <Redirect to="/"/>
-                </Switch>
+                    { isAuth ?
+                        <Switch>
+                            <Route path="/profile/:profileUserName" exact> <Profile /> </Route>
+                            {isAdmin ? <Route path="/admin" exact> <Admin /> </Route> : ''}
+                            <Route path="/collection/create/:profile_name" exact> <CollectionForm /> </Route> : ''}
+                            <Route path="/collection/create_item/:collection_id"> <ItemForm /> </Route> : ''}
+                            <Route path="/collection/:collId" exact> <Collection /> </Route>
+                            <Route path="/items/:subject" exact> <ItemList /> </Route>
+                            <Route path="/search/:subject" exact> <ItemList /> </Route>
+                            <Route path="/" exact> <Main /> </Route>
+                            <Redirect to="/"/>
+                        </Switch>
+                        :
+                        <Switch>
+                            <Route path="/login" exact> <Login /> </Route>
+                            <Route path="/signup" exact> <Signup /> </Route>
+                            <Route path="/collection/:collId" exact> <Collection /> </Route>
+                            <Route path="/items/:subject" exact> <ItemList /> </Route>
+                            <Route path="/search/:subject" exact> <ItemList /> </Route>
+                            <Route path="/" exact> <Main /> </Route>
+                            <Redirect to="/login"/>
+                        </Switch>
+                    }
                 <Footer />
             </div>
         </Router>

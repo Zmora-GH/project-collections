@@ -11,6 +11,8 @@ var UserSchema = new Schema(
         status: {type: Boolean, default: false},
         collections: [{ type: Schema.Types.ObjectId, ref: 'Collection' }],
         created: {type: Date, default: Date.now},
+        colormode: {type: String, default: "light", enum: ["light", "dark"]},
+        lang: {type: String, default: "en", enum: ["en", "ru"]},
     }
 );
 
