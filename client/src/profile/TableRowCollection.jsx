@@ -27,11 +27,11 @@ export default function TableRowCollection(props) {
                   </Button>
                 </ButtonGroup>
             </td>
-            <td className="ctd">
-                <img src={'/static' + props.data.image_url} height="60px"/>
+            <td className="">
+                <a className="text-decoration-none text-success" href={`/table/${props.data._id}`} > View items >>> </a>
             </td>
-            <td className="ctd" as="a" href={`/collection/${props.data._id}`} >
-                <a className="text-decoration-none text-light" href={`/collection/${props.data._id}`} >{props.data.name}</a>
+            <td className="" as="a" href={`/collection/${props.data._id}`} >
+                <a className="text-decoration-none text-success" href={`/collection/${props.data._id}`} >{props.data.name}</a>
             </td>
             <td className="ctd">{props.data.theme}</td>
             <td className="ctd">{props.data.items.length}</td>

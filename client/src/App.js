@@ -11,6 +11,7 @@ import Admin from './admin/Admin';
 import Profile from './profile/Profile';
 import Main from './main/Main';
 import Collection from './collection/Collection';
+import CollectionTable from './collection/CollectionTable';
 import CollectionForm from './collection/CollectionForm';
 import ItemList from './items/ItemList';
 import ItemForm from './items/ItemForm';
@@ -41,6 +42,7 @@ function App() {
                             <Route path="/collection/:collId" exact> <Collection /> </Route>
                             <Route path="/items/:subject" exact> <ItemList /> </Route>
                             <Route path="/search/:subject" exact> <ItemList /> </Route>
+                            <Route path="/table/:collId" exact> <CollectionTable /> </Route>
                             <Route path="/" exact> <Main /> </Route>
                             <Redirect to="/"/>
                         </Switch>
