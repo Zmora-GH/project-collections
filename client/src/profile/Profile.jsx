@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {useParams} from "react-router-dom";
 import {Table, Button, Card} from 'react-bootstrap';
 import axios from 'axios';
-import {AuthContext} from '../core/context';
+import {AuthContext, ColorContext} from '../core/context';
 
 import ProfileCard from './ProfileCard';
 import TableRowCollection from './TableRowCollection';
@@ -34,41 +34,45 @@ export default function Profile(props) {
     }, [])
 
     return (
-        <div>
-            <ProfileCard userData={profile.userdata}/>
-            <Card className="bg-dark text-light my-1">
-                <Card.Header as="h5">Collections:</Card.Header>
-                <Card.Body>
-                    <Table size="sm" bordered hover responsive variant="dark">
-                        <thead>
-                            <tr>
-                                <th colSpan="7">
-                                    <Button
-                                        className="my-2"
-                                        variant="outline-success"
-                                        as="a"
-                                        href={`/collection/create/${profileUserName}`}
-                                        >Create new collection</Button>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Theme</th>
-                                <th>Items</th>
-                                <th>Created</th>
+        <ColorContext.Consumer>
+            {({colormode}) => (
+            <div>
+                <ProfileCard userData={profile.userdata}/>
+                <Card className= {`${colormode.asClasses} my-1`}>
+                    <Card.Header as="h5">Collections:</Card.Header>
+                    <Card.Body>
+                        <Table size="sm" bordered hover responsive variant={colormode.table}>
+                            <thead>
+                                <tr>
+                                    <th colSpan="7">
+                                        <Button
+                                            className="my-2"
+                                            variant="outline-success"
+                                            as="a"
+                                            href={`/collection/create/${profileUserName}`}
+                                            >Create new collection</Button>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Theme</th>
+                                    <th>Items</th>
+                                    <th>Created</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            { profile.collections.map( (coll, index) => {
-                                return <TableRowCollection  data={coll} key={index}/>
-                            })}
-                        </tbody>
-                    </Table>
-                </Card.Body>
-            </Card>
-        </div>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                { profile.collections.map( (coll, index) => {
+                                    return <TableRowCollection  data={coll} key={index}/>
+                                })}
+                            </tbody>
+                        </Table>
+                    </Card.Body>
+                </Card>
+            </div>
+            )}
+        </ColorContext.Consumer>
     )
 }

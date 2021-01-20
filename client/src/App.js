@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "@yaireo/tagify/dist/tagify.css"
@@ -15,10 +16,21 @@ import CollectionTable from './collection/CollectionTable';
 import CollectionForm from './collection/CollectionForm';
 import ItemList from './items/ItemList';
 import ItemForm from './items/ItemForm';
-import {AuthContext} from './core/context';
+import {AuthContext, ColorContext, colormods} from './core/context';
 
-function App() {
-    let [isAuth, isAdmin, userId, username, colormode, lang] = [false, false, null, null, "light", "en"]
+function App(props) {
+
+    const [state, setState] = React.useState({colormode: colormods.dark})
+    const colorData = JSON.parse(localStorage.getItem('colorData'))
+    if (colorData) {
+        console.log(colorData);
+    }
+
+    const togleColormode = () => { setState(state => (
+        {colormode: state.colormode === colormods.dark? colormods.light: colormods.dark})
+    )}
+
+    let [isAuth, isAdmin, userId, username, colormode, lang] = [false, false, null, null, "dark", "en"]
     const data = JSON.parse(localStorage.getItem('userData'))
     if (data && data.token) {
         isAuth = true;
@@ -30,6 +42,7 @@ function App() {
     }
     return (
         <AuthContext.Provider value={{ isAuth, isAdmin, username, userId, colormode, lang}}>
+        <ColorContext.Provider value={{colormode: state.colormode, togleColormode: togleColormode }}>
         <Router>
             <div className="container">
                 <Header />
@@ -60,6 +73,7 @@ function App() {
                 <Footer />
             </div>
         </Router>
+        </ColorContext.Provider>
         </AuthContext.Provider>
     );
 }

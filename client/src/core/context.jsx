@@ -10,6 +10,24 @@ export const AuthContext = createContext({
     lang: "en"
 });
 
-export const SomeContext = createContext({
-    some: false
+export const colormods = {
+    light: {
+        name: "light",
+        back: "light",
+        text: "dark",
+        asClasses: " bg-light text-dark ",
+        table: ""
+    },
+    dark: {
+        name: "dark",
+        back: "dark",
+        text: "light",
+        asClasses: " bg-dark text-light ",
+        table: "dark"
+    }
+}
+
+export const ColorContext = createContext({
+    colormode: colormods.dark,
+    togleColormode: ()=>{},
 });
