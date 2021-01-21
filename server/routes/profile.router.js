@@ -5,7 +5,6 @@ const Theme = require('../models/Theme');
 
 const router = Router();
 
-
 // TODO: post --> get
 router.post('/', async (req, res) => {
     try {
@@ -21,6 +20,9 @@ router.post('/', async (req, res) => {
 
 router.post('/colormode', async (req, res) => {
     try {
+        const {userId, colormode} = req.body;
+        console.log(colormode === 'dark' ? 'light' : 'dark');
+        const user = await User.findByIdAndUpdate(userId, {colormode: colormode === 'dark' ? 'light' : 'dark'})
         res.status(200).json({});
    } catch (err) {
        console.log(err);

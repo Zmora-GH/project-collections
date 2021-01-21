@@ -18,7 +18,7 @@ export default function CustomFields(props) {
                             />
                     </Col>
                 </Form.Group>
-            )}})}
+            )} else { return '' } })}
 
             {props.scheme.slice(3,6).map((field,index)=>{ if (field !== '') { return (
                 <Form.Group as={Row} className="justify-content-center">
@@ -31,7 +31,7 @@ export default function CustomFields(props) {
                             className={props.colormode.asClasses} />
                     </Col>
                 </Form.Group>
-            )}})}
+            )} else { return '' } })}
 
             {props.scheme.slice(6,9).map((field,index)=>{ if (field !== '') { return (
                 <Form.Group as={Row} className="justify-content-center">
@@ -46,7 +46,7 @@ export default function CustomFields(props) {
                             as="textarea" />
                     </Col>
                 </Form.Group>
-            )}})}
+            )} else { return '' } })}
 
             {props.scheme.slice(9,12).map((field,index)=>{ if (field !== '') { return (
                 <Form.Group as={Row} className="justify-content-center">
@@ -61,7 +61,7 @@ export default function CustomFields(props) {
                             type="date"/>
                     </Col>
                 </Form.Group>
-            )}})}
+            )} else { return '' } })}
 
             {props.scheme.slice(12,15).map((field,index)=>{ if (field !== '') { return (
                 <Form.Group as={Row} className="justify-content-center">
@@ -71,7 +71,7 @@ export default function CustomFields(props) {
                         onChange={props.onChangeFunc}
                         label={field}/>
                 </Form.Group>
-            )}})}
+            )} else { return '' } })}
 
         </Container>
     )

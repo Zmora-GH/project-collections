@@ -18,7 +18,7 @@ import ItemList from './items/ItemList';
 import ItemForm from './items/ItemForm';
 import {AuthContext, ColorContext, colormods} from './core/context';
 
-function App(props) {
+function App() {
 
     let [isAuth, isAdmin, userId, username, colormode, lang] = [false, false, null, null, "light", "en"]
     const data = JSON.parse(localStorage.getItem('userData'))
@@ -34,11 +34,9 @@ function App(props) {
     let tmpcolor = '';
     if (localStorage.getItem('colorData')) {
         tmpcolor = JSON.parse(localStorage.getItem('colorData'));
-        console.log('tmpcolor ', tmpcolor.name);
     } else {
-        tmpcolor = colormods.light; // from user
+        tmpcolor = colormods[colormode];
         localStorage.setItem('colorData', JSON.stringify(tmpcolor))
-        console.log('EMPTY');
     }
     const [state, setState] = React.useState( {colormode: tmpcolor} )
     const togleColormode = () => { setState((state) => {
@@ -46,7 +44,6 @@ function App(props) {
         localStorage.setItem('colorData', JSON.stringify(tmp));
         return {colormode: tmp};
     })}
-
 
     return (
         <AuthContext.Provider value={{ isAuth, isAdmin, username, userId, colormode, lang}}>

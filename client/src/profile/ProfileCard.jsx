@@ -43,7 +43,10 @@ export default function ProfileCard(props) {
                             </tbody>
                         </Table>
                         </Col>
-                        <ColorModeSwitchButton togleColormode={togleColormode} colormode={colormode} />
+                        <ColorModeSwitchButton
+                            togleColormode={togleColormode}
+                            colormode={colormode}
+                            user={props.userData._id}/>
                     </Card.Body>
                 </Card>
             </div>

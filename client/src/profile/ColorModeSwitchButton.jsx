@@ -6,8 +6,9 @@ export default function ColorModeSwitchButton(props) {
     const [chk, setChk] = useState(props.colormode.name === 'dark')
     const changeHandle = () => {
         setChk(!chk)
-        //axios
         props.togleColormode()
+        axios.post('/api/profile/colormode', {userId: props.user, colormode: props.colormode.name})
+        .catch((err)=>{ console.log(err) })
     }
 
     return (
