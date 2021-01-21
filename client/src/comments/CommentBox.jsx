@@ -33,8 +33,8 @@ export default function CommentBox(props) {
     return (
         <Row className="mt-4 mx-auto">
             <Col lg={12} >
-                { comments.map((comment, index)=>{ return <Comment data={comment} key={index}/> })}
-                <CommentForm itemId={props.itemId} onSubmitGetComment={()=>{getComments()}}/>
+                { comments.map((comment, index)=>{ return <Comment data={comment} key={index} colormode={props.colormode}/> })}
+                <CommentForm itemId={props.itemId} onSubmitGetComment={()=>{getComments()}} colormode={props.colormode}/>
             </Col>
         </Row>
     )

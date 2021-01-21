@@ -22,7 +22,7 @@ export default function CommentForm(props) {
     }
     if (!isAuth) { return ''} else {
     return (
-        <Toast className="bg-dark text-light mx-auto">
+        <Toast className={"mx-auto" + props.colormode.asClasses}>
             <Form onSubmit={submitHandle}>
                 <Form.Control
                     onChange={changeHandle}
@@ -30,7 +30,7 @@ export default function CommentForm(props) {
                     rows={3}
                     placeholder="Your comment ..."
                     style={{"resize":"none"}}
-                    className="bg-dark text-light"
+                    className={props.colormode.asClasses}
                     />
                 <Button
                     variant="outline-secondary mt-1 w-100"

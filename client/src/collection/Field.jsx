@@ -10,7 +10,7 @@ export default function Field(props) {
                     type="text"
                     placeholder={props.field}
                     name=""
-                    className={true ? "bg-dark text-light" : "bg-light text-dark"}
+                    className={props.colormode.asClasses}
                     id={(props.index).toString()}/>
             </Form.Row>
         </Col>

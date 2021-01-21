@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useContext} from 'react';
 import {useParams} from "react-router-dom";
 import FormData from 'form-data'
 import {Card, Form, Button, Col} from 'react-bootstrap';
 import axios from 'axios';
+import { ColorContext } from '../core/context';
 
 import Field from './Field'
 import DropImageBox from '../drops/DropImageBox';
 
 export default function CollectionForm() {
     const {profile_name} = useParams(); // Перед этим возникает 404 // замменитть на пропс + переход после submit
+    const {colormode} = useContext(ColorContext);
     const [formData, setFormData] = useState({name: "", theme: "", discription: ""})
     const [themes, setThemes] = useState([])
     const [fields, setFields] = useState(new Array(15).fill(''))
@@ -65,11 +67,11 @@ export default function CollectionForm() {
     }, [themes])
 
     return (
-        <Card className="my-1 p-3 bg-dark text-light">
+        <Card className={"my-1 p-3" + colormode.asClasses}>
             <Form className="bg-dark text-light" onSubmit={formSubmitHandle}>
                 <Form.Row>
                     <Col lg={3}>
-                        <Form.Group className="bg-dark text-light">
+                        <Form.Group className={colormode.asClasses}>
                             <DropImageBox onDrop={onDropHandle} successFlag={prevUrl} prev={prevUrl}/>
                             <Form.Text className="text-muted text-truncate mx-2">
                                 {prevUrl ? '' : 'Please choice correct file ...'}
@@ -85,7 +87,7 @@ export default function CollectionForm() {
                                 type="text"
                                 placeholder="Name"
                                 name="name"
-                                className="bg-dark text-light"/>
+                                className={colormode.asClasses}/>
                         </Form.Group>
                         <Form.Group className="form-inline">
                             <Form.Control
@@ -94,7 +96,7 @@ export default function CollectionForm() {
                                 as="select"
                                 custom
                                 name="theme"
-                                className="bg-dark text-light w-25">
+                                className={"w-25" + colormode.asClasses}>
                                     <option value="" className="text-muted">Theme ...</option>
                                     {themes.map( (theme) => {
                                         return <option value={theme}>{theme}</option>
@@ -109,7 +111,7 @@ export default function CollectionForm() {
                                 rows={3}
                                 style={{"resize":"none"}}
                                 name="discription"
-                                className="bg-dark text-light"/>
+                                className={colormode.asClasses}/>
                         </Form.Group>
                     </Col>
                 </Form.Row>
@@ -126,7 +128,7 @@ export default function CollectionForm() {
                     'Date Field','Date Field','Date Field',
                     'Boolean Field','Boolean Field','Boolean Field'
                 ].map((field, index) => {
-                    return (<Field key={index} field={field} index={index} func={fieldsChangeHandle}/>)
+                    return (<Field key={index} field={field} index={index} func={fieldsChangeHandle} colormode={colormode}/>)
                 })}
             </Form>
             <Button variant="light" type="submit" className="my-3 px-3 float-right w-25">

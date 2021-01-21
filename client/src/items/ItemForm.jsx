@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Card, Form, Button, Col} from 'react-bootstrap';
 import {useParams} from "react-router-dom";
 import Tags from "@yaireo/tagify/dist/react.tagify"
 import axios from 'axios';
-
+import {ColorContext} from '../core/context';
 import DropImageBox from '../drops/DropImageBox';
 import CustomFields from './CustomFields';
 
 export default function ItemForm() {
+    const {colormode} = useContext(ColorContext)
     const {collection_id} = useParams();
     const [scheme, setScheme] = useState([])
     const [inputTags, setInputTags] = useState([])
@@ -98,8 +99,8 @@ export default function ItemForm() {
 
     return (
         <div>
-            <Card className="my-1 p-2 bg-dark text-light">
-                <Form className="bg-dark text-light" onSubmit={formSubmitHandle}>
+            <Card className={"my-1" + colormode.asClasses}>
+                <Form className={colormode.asClasses} onSubmit={formSubmitHandle}>
                     <Card.Title className="text-center my-4"> {'Create new item'}</Card.Title>
                     <Form.Row className="justify-content-center">
                         <Col lg={4}>
@@ -117,7 +118,7 @@ export default function ItemForm() {
                                     onChange={formChangeHandle}
                                     type="text"
                                     name="name"
-                                    className="bg-dark text-light"/>
+                                    className={colormode.asClasses}/>
                             </Form.Group>
                             <Form.Group>
                                 <Tags
@@ -125,12 +126,12 @@ export default function ItemForm() {
                                     whitelist={whiteList}
                                     onChange={tagsChangeHandle}
                                     placeholder="Tags"
-                                    className="form-control form-control-sm bg-dark text-light c-tag border-light"/>
+                                    className={"form-control form-control-sm c-tag border-light" + colormode.asClasses}/>
                             </Form.Group>
                         </Col>
                     </Form.Row>
                     <Form.Row className="justify-content-center">
-                        <CustomFields scheme={scheme} onChangeFunc={fieldsChangeHandle}/>
+                        <CustomFields scheme={scheme} onChangeFunc={fieldsChangeHandle} colormode={colormode}/>
                     </Form.Row>
                     <Button variant="light" type="submit" className="float-right w-25"> Create </Button>
                 </Form>

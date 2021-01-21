@@ -28,8 +28,8 @@ export default function Likes(props) {
 
     return (
         <OverlayTrigger trigger="click" placement="right" overlay={popover} show={show}>
-            <Button variant="outline-light" className="text-center px-1" onClick={likeHandle}>
-                <HandThumbsUp size={24}/> <Badge variant="light"> {likes} </Badge>
+            <Button variant="outline-secondary" className="text-center px-1" onClick={likeHandle}>
+                <HandThumbsUp size={24}/> <Badge variant="secondary"> {likes} </Badge>
             </Button>
         </OverlayTrigger>
     )

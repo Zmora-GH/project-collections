@@ -28,6 +28,6 @@ export const colormods = {
 }
 
 export const ColorContext = createContext({
-    colormode: colormods.dark,
+    colormode: colormods.light,
     togleColormode: ()=>{},
 });

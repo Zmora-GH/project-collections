@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Row, Col, Container, Badge, Jumbotron} from 'react-bootstrap';
 import axios from 'axios';
-
+import {ColorContext} from '../core/context';
 import ItemPrev from '../items/ItemPrev';
 import CollectionPrev from '../collection/CollectionPrev';
 
 export default function Main() {
+    const {colormode} = useContext(ColorContext);
     const [loading, setLoading] = useState(true)
     const [lastItems, setlastItems] = useState()
     const [largeColls, setLargeColls] = useState()
@@ -35,11 +36,11 @@ export default function Main() {
 
     if (loading){return ''} else {
     return (
-        <Container fluid className="my-2 bg-dark text-light">
+        <Container fluid className={"my-2" + colormode.asClasses}>
             <Row>
                 <Col lg={10}>
                     <Row>
-                        <Jumbotron className="w-100 bg-dark text-light text-center">
+                        <Jumbotron className={"w-100 text-center" + colormode.asClasses}>
                             <Container>
                                 <h1>
                                     <span> Welcom to </span>
@@ -54,13 +55,13 @@ export default function Main() {
                     <Row className="mb-4 justify-content-center">
                         <Col lg={12}><h4> Last added items:</h4></Col>
                         {lastItems ? lastItems.map((item, index)=>{
-                            return (<ItemPrev data={item} key={index}/>)
+                            return (<ItemPrev data={item} key={index} colormode={colormode}/>)
                         }):""}
                     </Row>
                     <Row className="mb-4 justify-content-center">
                         <Col lg={12}><h4> Largest collections:</h4></Col>
                             {largeColls ? largeColls.map((coll, index)=>{
-                                return (<CollectionPrev data={coll} key={index}/>)
+                                return (<CollectionPrev data={coll} key={index} colormode={colormode}/>)
                             }):""}
                     </Row>
                 </Col>
@@ -74,7 +75,7 @@ export default function Main() {
                                     as="a"
                                     href={`/items/${tag.name}`}
                                     className="mx-1 d-inline-block"
-                                    variant="light">
+                                    variant="secondary">
                                     {tag.name}
                                 </Badge>)
                         }):""}

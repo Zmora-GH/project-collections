@@ -18,7 +18,11 @@ export default function Item(props) {
 
     return (
         <Row>
-            <Card border="light" bg="dark" text="light" className="my-2 mx-auto w-100">
+            <Card
+                border={props.colormode.text}
+                bg={props.colormode.back}
+                text={props.colormode.text}
+                className="my-2 mx-auto w-100">
                 <Card.Title className='p-1'>
                     <span className="mx-2">{props.data.name}</span>
 
@@ -29,8 +33,8 @@ export default function Item(props) {
                                 onClick={deleteHandle}>
                                 <TrashFill color="red" />
                             </Button>
-                            <Button size="sm" variant="outline-light" className="float-right mx-1 px-2">
-                                <PenFill color="white" />
+                            <Button size="sm" variant="outline-secondary" className="float-right mx-1 px-2">
+                                <PenFill color="gray" />
                             </Button>
                         </span>
                         : '' }
@@ -38,7 +42,7 @@ export default function Item(props) {
                     </Card.Title>
                     <Card.Body>
                         <Tabs activeKey={key} className="mx-auto" onSelect={(k) => setKey(k)}>
-                            <Tab eventKey="item" title="Item" tabClassName="bg-dark text-light">
+                            <Tab eventKey="item" title="Item" tabClassName={props.colormode.asClasses}>
                                 <Row className="mt-4">
                                     <Col md={5}>
                                         <Card.Img
@@ -49,12 +53,12 @@ export default function Item(props) {
                                             className="border border-secondary"
                                             />
                                         {props.data.tags_id.map((tag, index) => {
-                                            return (<Badge className="mx-1" variant="light" key={index}> {tag.name} </Badge>)
+                                            return (<Badge className="mx-1" variant="secondary" key={index}> {tag.name} </Badge>)
                                         })}
                                     </Col>
                                     <Col md={7}>
                                         <Card.Body>
-                                            <Table size="sm" borderless striped variant="dark">
+                                            <Table size="sm" borderless striped variant={props.colormode.table}>
                                                 <tbody>
 
                                                     {props.data.fieldset_id.fields.slice(0, 6).map((f, i)=>{
@@ -86,7 +90,7 @@ export default function Item(props) {
                                                     <Row key={i}>
                                                         <Col md={12} className="text-center">{f.name}</Col>
                                                         <Col md={12} className="">
-                                                            <div className="bg-light text-dark rounded p-1 my-1">
+                                                            <div className={"rounded p-1 my-1" + props.colormode.asClasses}>
                                                                 <ReactMarkdown children={f.value}/>
                                                             </div>
                                                         </Col>
@@ -107,9 +111,9 @@ export default function Item(props) {
                                             </Row>
 
                                         </Tab>
-                                        <Tab eventKey="comments" title="Comments"  tabClassName="bg-dark text-light">
+                                        <Tab eventKey="comments" title="Comments"  tabClassName={props.colormode.asClasses}>
                                             <Card.Body>
-                                                <CommentBox itemId={props.data._id} isOpen={(key === 'comments')}/>
+                                                <CommentBox itemId={props.data._id} isOpen={(key === 'comments')} colormode={props.colormode}/>
                                             </Card.Body>
                                         </Tab>
                                     </Tabs>

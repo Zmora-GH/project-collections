@@ -6,9 +6,9 @@ export default function CollectionPrev(props) {
     return (
         <Col lg={12} className="my-1">
         <Card
-            border="light"
-            bg="dark"
-            text="white"
+            border={props.colormode.text}
+            bg={props.colormode.back}
+            text={props.colormode.text}
             role="button"
             onClick={()=>{window.location.replace(`/collection/${props.data._id}`)}}
         >

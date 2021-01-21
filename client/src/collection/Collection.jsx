@@ -5,12 +5,13 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown'
 
 import Item from '../items/Item';
-import {AuthContext} from '../core/context';
+import {AuthContext, ColorContext} from '../core/context';
 
 export default function Collection() {
     const {collId} = useParams();
     const [loading, setLoading] = useState(true)
     const {isAuth, isAdmin, userId} = useContext(AuthContext);
+    const {colormode} = useContext(ColorContext);
     const [collection, setCollection] = useState()
 
     useEffect(()=>{
@@ -29,20 +30,20 @@ export default function Collection() {
 
     if (loading){return ''} else {
     return (
-        <Card className="bg-dark text-light m-1 p-2">
+        <Card className={"m-1 p-2" + colormode.asClasses}>
             {isAdmin || userId===collection.user_id ?
                 <Card.Title>
                     <span> {collection.name} </span>
                     <Button
                         size="sm"
-                        variant="outline-light"
+                        variant="outline-secondary"
                         className="float-right mx-1 px-2"
                         onClick={()=>{}}>
                         Edit Collection
                     </Button>
                     <Button
                         size="sm"
-                        variant="outline-light"
+                        variant="outline-secondary"
                         className="float-right mx-1 px-2"
                         as="a"
                         href={`/collection/create_item/${collection._id}`}>
@@ -67,7 +68,7 @@ export default function Collection() {
                     </Col>
                     <Col lg={9}>
                         { collection.items.map((data, index) => {
-                            return <Item key={index} data={data} owner={isAdmin || userId===collection.user_id}/>
+                            return <Item key={index} data={data} owner={isAdmin || userId===collection.user_id} colormode={colormode}/>
                         })}
                     </Col>
                 </Row>

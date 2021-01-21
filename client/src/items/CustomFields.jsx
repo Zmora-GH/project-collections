@@ -13,7 +13,7 @@ export default function CustomFields(props) {
                             required={true}
                             onChange={props.onChangeFunc}
                             id={index ? index : "0"}
-                            className="bg-dark text-light"
+                            className={props.colormode.asClasses}
                             type="number"
                             />
                     </Col>
@@ -28,7 +28,7 @@ export default function CustomFields(props) {
                             required={true}
                             onChange={props.onChangeFunc}
                             id={index + 3}
-                            className="bg-dark text-light" />
+                            className={props.colormode.asClasses} />
                     </Col>
                 </Form.Group>
             )}})}
@@ -42,7 +42,7 @@ export default function CustomFields(props) {
                             required={true}
                             onChange={props.onChangeFunc}
                             id={index + 6}
-                            className="bg-dark text-light unres"
+                            className={props.colormode.asClasses + "unres"}
                             as="textarea" />
                     </Col>
                 </Form.Group>
@@ -57,7 +57,7 @@ export default function CustomFields(props) {
                             required={true}
                             onChange={props.onChangeFunc}
                             id={index + 9}
-                            className="bg-dark text-light text-center"
+                            className={"text-center" + props.colormode.asClasses}
                             type="date"/>
                     </Col>
                 </Form.Group>

@@ -7,9 +7,9 @@ export default function ItemPrev(props) {
     return (
         <Col lg={4} className="my-1">
         <Card
-            border="light"
-            bg="dark"
-            text="light"
+            border={props.colormode.text}
+            bg={props.colormode.back}
+            text={props.colormode.text}
             role="button"
             >
             <Card.Title className="text-center">{props.data.name}</Card.Title>
@@ -31,7 +31,7 @@ export default function ItemPrev(props) {
                                 as="a"
                                 href={`/items/${tag.name}`}
                                 className="mx-1 d-inline-block"
-                                variant="light">
+                                variant="secondary">
                                 {tag.name}
                             </Badge>)
                     })}

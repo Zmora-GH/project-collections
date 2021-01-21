@@ -6,10 +6,12 @@ import { useTable, useSortBy } from 'react-table'
 import {TrashFill, PenFill} from 'react-bootstrap-icons';
 
 import Item from '../items/Item';
-import {AuthContext} from '../core/context';
+import { AuthContext } from '../core/context';
+import { ColorContext } from '../core/context';
 
 export default function CollectionTable() {
     const {collId} = useParams();
+    const {colormode} = useContext(ColorContext);
     const [loading, setLoading] = useState(true);
     const {isAuth, isAdmin, userId} = useContext(AuthContext);
     const [collection, setCollection] = useState();
@@ -94,7 +96,7 @@ export default function CollectionTable() {
 
     if (loading) { return ''} else {
     return (
-        <Card className="bg-dark text-light my-1">
+        <Card className={"my-1" + colormode.asClasses}>
             <Card.Header as="h5">{`Collection "${collection.name.toUpperCase()}":`}</Card.Header>
             <Card.Body>
                 <Button
@@ -103,7 +105,7 @@ export default function CollectionTable() {
                     className="my-2 mx-1">
                     {'Add Item'}
                 </Button>
-                <Table size="sm" bordered hover responsive variant="dark">
+                <Table size="sm" bordered hover responsive variant={colormode.table}>
                     <thead>
                         { headerGroups.map(headerGroup => (
                             <tr { ...headerGroup.getHeaderGroupProps() }>

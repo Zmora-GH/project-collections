@@ -20,17 +20,7 @@ import {AuthContext, ColorContext, colormods} from './core/context';
 
 function App(props) {
 
-    const [state, setState] = React.useState({colormode: colormods.dark})
-    const colorData = JSON.parse(localStorage.getItem('colorData'))
-    if (colorData) {
-        console.log(colorData);
-    }
-
-    const togleColormode = () => { setState(state => (
-        {colormode: state.colormode === colormods.dark? colormods.light: colormods.dark})
-    )}
-
-    let [isAuth, isAdmin, userId, username, colormode, lang] = [false, false, null, null, "dark", "en"]
+    let [isAuth, isAdmin, userId, username, colormode, lang] = [false, false, null, null, "light", "en"]
     const data = JSON.parse(localStorage.getItem('userData'))
     if (data && data.token) {
         isAuth = true;
@@ -40,6 +30,24 @@ function App(props) {
         colormode = data.user.colormode;
         lang = data.user.lang;
     }
+
+    let tmpcolor = '';
+    if (localStorage.getItem('colorData')) {
+        tmpcolor = JSON.parse(localStorage.getItem('colorData'));
+        console.log('tmpcolor ', tmpcolor.name);
+    } else {
+        tmpcolor = colormods.light; // from user
+        localStorage.setItem('colorData', JSON.stringify(tmpcolor))
+        console.log('EMPTY');
+    }
+    const [state, setState] = React.useState( {colormode: tmpcolor} )
+    const togleColormode = () => { setState((state) => {
+        let tmp = (state.colormode.name === 'light') ? colormods.dark : colormods.light;
+        localStorage.setItem('colorData', JSON.stringify(tmp));
+        return {colormode: tmp};
+    })}
+
+
     return (
         <AuthContext.Provider value={{ isAuth, isAdmin, username, userId, colormode, lang}}>
         <ColorContext.Provider value={{colormode: state.colormode, togleColormode: togleColormode }}>
