@@ -55,8 +55,8 @@ export default function Profile(props) {
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <th>Image</th>
-                                    <th>Name</th>
+                                    <th>Name <small> (Click for view items) </small> </th>
+                                    <th>Image URL</th>
                                     <th>Theme</th>
                                     <th>Items</th>
                                     <th>Created</th>
@@ -65,7 +65,7 @@ export default function Profile(props) {
                             </thead>
                             <tbody>
                                 { profile.collections.map( (coll, index) => {
-                                    return <TableRowCollection  data={coll} key={index}/>
+                                    return <TableRowCollection  data={coll} key={index} colormode={colormode}/>
                                 })}
                             </tbody>
                         </Table>

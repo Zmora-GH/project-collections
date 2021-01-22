@@ -100,6 +100,8 @@ export default function CollectionTable() {
             <Card.Header as="h5">{`Collection "${collection.name.toUpperCase()}":`}</Card.Header>
             <Card.Body>
                 <Button
+                    as="a"
+                    href={`/collection/create_item/${collection._id}`}
                     size="sm"
                     variant="success"
                     className="my-2 mx-1">

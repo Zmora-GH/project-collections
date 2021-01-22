@@ -7,6 +7,8 @@ const Fieldset = require('../models/Fieldset');
 
 const router = Router();
 
+const FileCloudApi = require('../api/FileCloudApi')
+
 router.get('/last', async (req, res) => {
     try {
         const items = await Item.find().sort('-created').limit(3).populate({path: 'tags_id', model: Tag})
@@ -46,7 +48,8 @@ router.get('/withtag', async (req, res) => {
 router.get('/search', async (req, res) => {
     try {
         const search = req.query.search;
-        const items = await Item.find({$text: {$search: search}}).populate({path: 'tags_id', model: Tag})
+        const items = await Item.find({$text: {$search: search}})
+        .populate({path: 'tags_id', model: Tag})
         // const colls = await Collection.find({$text: {$search: search}})
         // const comms = await Comment.find({$text: {$search: search}})
         // console.log('Search in Is = ', items.length);
@@ -62,7 +65,8 @@ router.get('/search', async (req, res) => {
 router.post('/delete', async (req, res) => {
     try {
         const item_id = req.body.item_id
-        await Item.findByIdAndDelete(item_id)
+        const delItem = await Item.findByIdAndDelete(item_id)
+        await FileCloudApi.remove(delItem.image_id)
         res.status(200).json({});
     } catch (err) {
         console.log(err);

@@ -10,7 +10,7 @@ const path = require('path');
 const router = Router();
 const upload = multer()
 
-const fs = require('fs');
+const FileCloudApi = require('../api/FileCloudApi')
 
 router.get('/', async (req, res) => {
     try {
@@ -117,7 +117,8 @@ router.post('/scheme', async (req, res) => {
 router.post('/delete', async (req, res) => {
     try {
         const coll_id = req.body.coll_id
-        await Collection.findByIdAndDelete(coll_id)
+        const delColl = await Collection.findByIdAndDelete(coll_id)
+        await FileCloudApi.remove(delColl.image_id)
         res.status(200).json({});
     } catch (err) {
         console.log(err);
@@ -133,14 +134,22 @@ router.post('/image', upload.any(), async (req, res) => {
         const storage = "./server/storage"
         if (coll_id) {
             const entity = 'collections'
-            const filePath = `/${entity}/${Date.now()}.${img.originalname.split('.').pop()}`
-            fs.appendFileSync(`${storage}${filePath}`, img.buffer)
-            const temp = await Collection.findOneAndUpdate({_id: coll_id}, {image_url: filePath})
+            const resp = await FileCloudApi.upload(img, entity, storage)
+            if (resp.status) {
+                await Collection.findOneAndUpdate({_id: item_id}, {
+                    image_url: resp.url,
+                    image_id: resp.public_id
+                })
+            }
         } else if (item_id) {
             const entity = 'items'
-            const filePath = `/${entity}/${Date.now()}.${img.originalname.split('.').pop()}`
-            fs.appendFileSync(`${storage}${filePath}`, img.buffer)
-            const temp = await Item.findOneAndUpdate({_id: item_id}, {image_url: filePath})
+            const resp = await FileCloudApi.upload(img, entity, storage)
+            if (resp.status) {
+                await Item.findOneAndUpdate({_id: item_id}, {
+                    image_url: resp.url,
+                    image_id: resp.public_id
+                })
+            }
         }
         res.status(201).json({});
    } catch (err) {

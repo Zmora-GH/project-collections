@@ -92,7 +92,9 @@ export default function ItemForm() {
         }
         if (!whiteList){
             axios.get('/api/tag')
-            .then((res)=>{ let temp = []; res.data.forEach( (tag) => { temp.push(tag.name) }); setWhiteList(temp)})
+            .then((res)=>{
+                let temp = [];
+                res.data.tags.forEach( (tag) => { temp.push(tag.name) }); setWhiteList(temp)})
             .catch((err)=>{ console.log(err) })
         }
     }, [])

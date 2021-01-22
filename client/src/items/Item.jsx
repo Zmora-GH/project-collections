@@ -11,33 +11,36 @@ import Likes from './Likes';
 export default function Item(props) {
     const [key, setKey] = useState('item');
     const {isAdmin, userId} = useContext(AuthContext);
+    const [isDel, setIsDel] = useState(false)
 
     const deleteHandle = ()=>{
         axios.post('/api/items/delete', {item_id: props.data._id})
+        setIsDel(true)
     }
 
-    return (
-        <Row>
-            <Card
-                border={props.colormode.text}
-                bg={props.colormode.back}
-                text={props.colormode.text}
-                className="my-2 mx-auto w-100">
-                <Card.Title className='p-1'>
-                    <span className="mx-2">{props.data.name}</span>
+    if (isDel) {return ''} else {
+        return (
+            <Row>
+                <Card
+                    border={props.colormode.text}
+                    bg={props.colormode.back}
+                    text={props.colormode.text}
+                    className="my-2 mx-auto w-100">
+                    <Card.Title className='p-1'>
+                        <span className="mx-2">{props.data.name}</span>
 
-                    {props.owner ?
-                        <span>
-                            <Button size="sm" variant="outline-danger"
-                                className="float-right mx-1 px-2"
-                                onClick={deleteHandle}>
-                                <TrashFill color="red" />
-                            </Button>
-                            <Button size="sm" variant="outline-secondary" className="float-right mx-1 px-2">
-                                <PenFill color="gray" />
-                            </Button>
-                        </span>
-                        : '' }
+                        {props.owner ?
+                            <span>
+                                <Button size="sm" variant="outline-danger"
+                                    className="float-right mx-1 px-2"
+                                    onClick={deleteHandle}>
+                                    <TrashFill color="red" />
+                                </Button>
+                                <Button size="sm" variant="outline-secondary" className="float-right mx-1 px-2">
+                                    <PenFill color="gray" />
+                                </Button>
+                            </span>
+                            : '' }
 
                     </Card.Title>
                     <Card.Body>
@@ -79,46 +82,46 @@ export default function Item(props) {
                                                                     <td>{f.value ? 'Yes': 'No'}</td></tr>
                                                                 )}})}
 
-                                                            </tbody>
-                                                        </Table>
-                                                    </Card.Body>
+                                                </tbody>
+                                            </Table>
+                                        </Card.Body>
+                                    </Col>
+                                </Row>
+
+                                    {props.data.fieldset_id.fields.slice(6, 9).map((f, i)=>{
+                                        if (f) {return(
+                                            <Row key={i}>
+                                                <Col md={12} className="text-center">{f.name}</Col>
+                                                <Col md={12} className="">
+                                                    <div className={"rounded p-1 my-1" + props.colormode.asClasses}>
+                                                        <ReactMarkdown children={f.value}/>
+                                                    </div>
                                                 </Col>
                                             </Row>
+                                        )}
+                                    })}
 
-                                            {props.data.fieldset_id.fields.slice(6, 9).map((f, i)=>{
-                                                if (f) {return(
-                                                    <Row key={i}>
-                                                        <Col md={12} className="text-center">{f.name}</Col>
-                                                        <Col md={12} className="">
-                                                            <div className={"rounded p-1 my-1" + props.colormode.asClasses}>
-                                                                <ReactMarkdown children={f.value}/>
-                                                            </div>
-                                                        </Col>
-                                                    </Row>
-                                                )}
-                                            })}
+                                    <Row className="mb-3">
+                                        <Col md={12} className="text-center">
+                                            <Likes startCount={props.data.like_list.length} itemId={props.data._id}/>
+                                        </Col>
+                                    </Row>
 
-                                            <Row className="mb-3">
-                                                <Col md={12} className="text-center">
-                                                    <Likes startCount={props.data.like_list.length} itemId={props.data._id}/>
-                                                </Col>
-                                            </Row>
+                                    <Row>
+                                        <Col md={12} >
+                                            <small className="text-muted float-right"> {new Date(props.data.created).toLocaleDateString()}</small>
+                                        </Col>
+                                    </Row>
 
-                                            <Row>
-                                                <Col md={12} >
-                                                    <small className="text-muted float-right"> {new Date(props.data.created).toLocaleDateString()}</small>
-                                                </Col>
-                                            </Row>
-
-                                        </Tab>
-                                        <Tab eventKey="comments" title="Comments"  tabClassName={props.colormode.asClasses}>
-                                            <Card.Body>
-                                                <CommentBox itemId={props.data._id} isOpen={(key === 'comments')} colormode={props.colormode}/>
-                                            </Card.Body>
-                                        </Tab>
-                                    </Tabs>
-                                </Card.Body>
-                            </Card>
-                        </Row>
-                    )
-                }
+                                </Tab>
+                                <Tab eventKey="comments" title="Comments"  tabClassName={props.colormode.asClasses}>
+                                    <Card.Body>
+                                        <CommentBox itemId={props.data._id} isOpen={(key === 'comments')} colormode={props.colormode}/>
+                                    </Card.Body>
+                                </Tab>
+                    </Tabs>
+                </Card.Body>
+            </Card>
+        </Row>
+    )
+}}

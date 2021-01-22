@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Zmora-GH/project-collections#readme",
   "dependencies": {
+    "cloudinary": "^1.23.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "dropbox": "^8.2.0",

@@ -5,13 +5,18 @@ import axios from 'axios';
 
 export default function TableRowCollection(props) {
     const [hover, setHover] = useState(false)
+    const [isDel, setIsDel] = useState(false)
+
     const editHandle = () =>{
         // TODO: edit
     }
+
     const deleteHandle = () =>{
         axios.post('/api/collection/delete', {coll_id: props.data._id})
+        setIsDel(true)
     }
 
+    if (isDel) {return ''} else {
     return (
         <tr onMouseOver={()=>{setHover(true)}} onMouseOut={()=>{setHover(false)}} >
             <td className="ctd align-middle p-0">
@@ -27,11 +32,17 @@ export default function TableRowCollection(props) {
                   </Button>
                 </ButtonGroup>
             </td>
-            <td className="">
-                <a className="text-decoration-none text-success" href={`/table/${props.data._id}`} > View items >>> </a>
-            </td>
             <td className="" as="a" href={`/collection/${props.data._id}`} >
-                <a className="text-decoration-none text-success" href={`/collection/${props.data._id}`} >{props.data.name}</a>
+                <a
+                    className={`text-decoration-none text-${props.colormode.text}`}
+                    href={`/table/${props.data._id}`}
+                    > {props.data.name} </a>
+            </td>
+            <td className="text-truncate">
+                <a
+                    className={`text-decoration-none text-${props.colormode.text}`}
+                    href={props.data.image_url}
+                    > {props.data.image_url} </a>
             </td>
             <td className="ctd">{props.data.theme}</td>
             <td className="ctd">{props.data.items.length}</td>
@@ -39,4 +50,4 @@ export default function TableRowCollection(props) {
 
         </tr>
     )
-}
+}}
