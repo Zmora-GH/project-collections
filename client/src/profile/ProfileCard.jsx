@@ -1,8 +1,9 @@
 import React from 'react';
-import {Card, Col, Badge, Table} from 'react-bootstrap';
+import {Card, Col, Row, Badge, Table } from 'react-bootstrap';
 import {ColorContext} from '../core/context';
 
-import ColorModeSwitchButton from './ColorModeSwitchButton'
+import ColorModeSwitchButton from './ColorModeSwitchButton';
+import LanguageSwitchButton from './LanguageSwitchButton';
 
 export default function ProfileCard(props) {
 
@@ -42,11 +43,19 @@ export default function ProfileCard(props) {
                                 </tr>
                             </tbody>
                         </Table>
+                        <Row>
+                            <Col>
+                                <ColorModeSwitchButton
+                                    togleColormode={togleColormode}
+                                    colormode={colormode}
+                                    user={props.userData._id}/>
+                            </Col>
+                            <Col>
+                                <LanguageSwitchButton
+                                    user={props.userData._id}/>
+                            </Col>
+                        </Row>
                         </Col>
-                        <ColorModeSwitchButton
-                            togleColormode={togleColormode}
-                            colormode={colormode}
-                            user={props.userData._id}/>
                     </Card.Body>
                 </Card>
             </div>

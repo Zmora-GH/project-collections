@@ -10,6 +10,7 @@ export default function GoogleAuth(props) {
         axios.post('/api/auth/google_signin', {googleProfileObj: response.profileObj})
         .then((res)=>{
             console.log(res);
+            localStorage.clear()
             localStorage.setItem('userData' , JSON.stringify({...res.data}));
             window.location.replace('/')
         })

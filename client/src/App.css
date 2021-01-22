@@ -10,6 +10,10 @@
   --tag-remove-btn-bg--hover: grey;
   --placeholder-color       : grey
 }
+.lang-flag {
+    padding: 0px 0px;
+    font-size: 2em;
+}
 .cfgroup {
     width: 300px;
 }

@@ -16,6 +16,7 @@ export default function Login() {
         event.preventDefault();
         await axios.post('/api/auth/signin', {...formData})
         .then( (res) => {
+            localStorage.clear()
             localStorage.setItem('userData' , JSON.stringify({...res.data}));
             window.location.replace('/')
         } )

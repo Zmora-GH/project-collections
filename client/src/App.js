@@ -20,7 +20,7 @@ import {AuthContext, ColorContext, colormods} from './core/context';
 
 function App() {
 
-    let [isAuth, isAdmin, userId, username, colormode, lang] = [false, false, null, null, "light", "en"]
+    let isAuth, isAdmin, userId, username, colormode, lang;
     const data = JSON.parse(localStorage.getItem('userData'))
     if (data && data.token) {
         isAuth = true;
@@ -29,6 +29,13 @@ function App() {
         username = data.user.username;
         colormode = data.user.colormode;
         lang = data.user.lang;
+    } else {
+        isAuth = false;
+        isAdmin = false;
+        userId = null
+        username = null
+        colormode = 'light'
+        lang = 'en'
     }
 
     let tmpcolor = '';
@@ -41,6 +48,7 @@ function App() {
     const [state, setState] = React.useState( {colormode: tmpcolor} )
     const togleColormode = () => { setState((state) => {
         let tmp = (state.colormode.name === 'light') ? colormods.dark : colormods.light;
+
         localStorage.setItem('colorData', JSON.stringify(tmp));
         return {colormode: tmp};
     })}
