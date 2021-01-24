@@ -56,7 +56,13 @@ export default function Item(props) {
                                             className="border border-secondary"
                                             />
                                         {props.data.tags_id.map((tag, index) => {
-                                            return (<Badge className="mx-1" variant="secondary" key={index}> {tag.name} </Badge>)
+                                            return (
+                                                <Badge
+                                                    className="mx-1"
+                                                    variant="secondary"
+                                                    key={index}
+                                                    > {tag.name}
+                                                </Badge>)
                                         })}
                                     </Col>
                                     <Col md={7}>
@@ -68,19 +74,19 @@ export default function Item(props) {
                                                         if (f) {return(
                                                             <tr key={i}><td className="font-weight-bold">{f.name}</td>
                                                             <td>{f.value}</td></tr>
-                                                        )}})}
+                                                    )}})}
 
-                                                        {props.data.fieldset_id.fields.slice(9, 12).map((f, i)=>{
-                                                            if (f) {return(
-                                                                <tr key={i}><td className="font-weight-bold">{f.name}</td>
-                                                                <td>{new Date(f.value).toLocaleDateString()}</td></tr>
-                                                            )}})}
+                                                    {props.data.fieldset_id.fields.slice(9, 12).map((f, i)=>{
+                                                        if (f) {return(
+                                                            <tr key={i}><td className="font-weight-bold">{f.name}</td>
+                                                            <td>{new Date(f.value).toLocaleDateString()}</td></tr>
+                                                    )}})}
 
-                                                            {props.data.fieldset_id.fields.slice(12, 15).map((f, i)=>{
-                                                                if (f) {return(
-                                                                    <tr key={i}><td className="font-weight-bold">{f.name}</td>
-                                                                    <td>{f.value ? 'Yes': 'No'}</td></tr>
-                                                                )}})}
+                                                    {props.data.fieldset_id.fields.slice(12, 15).map((f, i)=>{
+                                                        if (f) {return(
+                                                            <tr key={i}><td className="font-weight-bold">{f.name}</td>
+                                                            <td>{f.value ? 'Yes': 'No'}</td></tr>
+                                                    )}})}
 
                                                 </tbody>
                                             </Table>

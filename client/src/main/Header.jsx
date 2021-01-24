@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react';
 import {Navbar, NavDropdown, Nav, FormControl, Button, Form, InputGroup} from 'react-bootstrap';
 import {Search} from 'react-bootstrap-icons';
-
+import { withTranslation } from 'react-i18next';
 import { ColorContext, AuthContext } from '../core/context';
 
-export default function Header() {
+export default withTranslation()(function Header({t}) {
     const {isAuth, isAdmin, username} = useContext(AuthContext);
     const [searchData, setSearchData] = useState()
 
@@ -25,14 +25,14 @@ export default function Header() {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="/">HOME</Nav.Link>
+                            <Nav.Link href="/">{t('main_home')}</Nav.Link>
                         </Nav>
                         <Nav>
                             <Form inline onSubmit={submitHandle}>
                                 <InputGroup className="mx-3">
                                     <FormControl
                                         onChange={searchHandle}
-                                        placeholder="Search"
+                                        placeholder={t('main_search')}
                                         type="text"
                                         name="search"
                                         className={"border-secondary " + colormode.asClasses}/>
@@ -47,13 +47,13 @@ export default function Header() {
                             {isAuth ?
                                 <Nav>
                                     <NavDropdown title={username.toUpperCase()} id="collasible-nav-dropdown">
-                                        <NavDropdown.Item href={"/profile/" + username}>My Profile</NavDropdown.Item>
-                                        {isAdmin ? <NavDropdown.Item href="/admin">Admin Panel</NavDropdown.Item> : ''}
+                                        <NavDropdown.Item href={"/profile/" + username}>{t('main_profile')}</NavDropdown.Item>
+                                        {isAdmin ? <NavDropdown.Item href="/admin">{t('main_admin')}</NavDropdown.Item> : ''}
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item
                                             href="/"
                                             onClick={()=>{localStorage.clear()}}
-                                            >Logout
+                                            >{t('main_logout')}
                                         </NavDropdown.Item>
                                     </NavDropdown>
                                 </Nav>
@@ -68,4 +68,4 @@ export default function Header() {
             )}
         </ColorContext.Consumer>
     )
-}
+})

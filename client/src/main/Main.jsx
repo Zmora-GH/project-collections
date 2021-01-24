@@ -2,15 +2,17 @@ import React, {useState, useEffect, useContext} from 'react';
 import {Row, Col, Container, Badge, Jumbotron} from 'react-bootstrap';
 import axios from 'axios';
 import {ColorContext} from '../core/context';
+import { withTranslation } from 'react-i18next';
+
 import ItemPrev from '../items/ItemPrev';
 import CollectionPrev from '../collection/CollectionPrev';
 
-export default function Main() {
+export default withTranslation()(function Main({t}) {
     const {colormode} = useContext(ColorContext);
-    const [loading, setLoading] = useState(true)
-    const [lastItems, setlastItems] = useState()
-    const [largeColls, setLargeColls] = useState()
-    const [tagCloud, setTagCloud] = useState()
+    const [loading, setLoading] = useState(true);
+    const [lastItems, setlastItems] = useState();
+    const [largeColls, setLargeColls] = useState();
+    const [tagCloud, setTagCloud] = useState();
 
     useEffect(()=>{
         if (!lastItems) {
@@ -55,13 +57,13 @@ export default function Main() {
                     <Row className="mb-4 justify-content-center">
                         <Col lg={12}><h4> Last added items:</h4></Col>
                         {lastItems ? lastItems.map((item, index)=>{
-                            return (<ItemPrev data={item} key={index} colormode={colormode}/>)
+                            return (<ItemPrev data={item} key={index} colormode={colormode} t={t}/>)
                         }):""}
                     </Row>
                     <Row className="mb-4 justify-content-center">
                         <Col lg={12}><h4> Largest collections:</h4></Col>
                             {largeColls ? largeColls.map((coll, index)=>{
-                                return (<CollectionPrev data={coll} key={index} colormode={colormode}/>)
+                                return (<CollectionPrev data={coll} key={index} colormode={colormode} t={t}/>)
                             }):""}
                     </Row>
                 </Col>
@@ -84,4 +86,4 @@ export default function Main() {
             </Row>
         </Container>
     )}
-}
+})

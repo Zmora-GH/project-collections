@@ -4,8 +4,9 @@ import {useParams, useLocation} from "react-router-dom";
 import axios from 'axios';
 import {ColorContext} from '../core/context';
 import ItemPrev from './ItemPrev';
+import { withTranslation } from 'react-i18next';
 
-export default function ItemList() {
+export default withTranslation()(function ItemList({t}) {
     const {colormode} = useContext(ColorContext)
     const [items, setItems] = useState([])
     const {subject} = useParams();
@@ -31,15 +32,15 @@ export default function ItemList() {
 
     return (
         <Card className={"my-1 pt-3 border-secondary" + colormode.asClasses}>
-            <Card.Title className="ml-3">{`All items with "${subject}":`}</Card.Title>
+            <Card.Title className="ml-3">{`${ t('search_message') } "${ subject }":`}</Card.Title>
             <Card.Body>
                 <Row>
                 {items.length ? items.map((item, index) => { return (
-                    <ItemPrev data={item} key={index} colormode={colormode}/>
-                )}) : <span className="mx-auto my-4">{" There's nothing here ¯\\_(ツ)_/¯ "}</span> }
+                    <ItemPrev data={item} key={index} colormode={colormode} t={t}/>
+                )}) : <span className="mx-auto my-4">{ t('search_message_empty') }</span> }
                 </Row>
             </Card.Body>
         </Card>
 
     )
-}
+})

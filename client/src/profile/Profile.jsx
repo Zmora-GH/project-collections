@@ -3,11 +3,11 @@ import {useParams} from "react-router-dom";
 import {Table, Button, Card} from 'react-bootstrap';
 import axios from 'axios';
 import {AuthContext, ColorContext} from '../core/context';
-
+import { withTranslation } from 'react-i18next';
 import ProfileCard from './ProfileCard';
 import TableRowCollection from './TableRowCollection';
 
-export default function Profile(props) {
+export default withTranslation()(function Profile({ t, i18n }) {
     const { profileUserName } = useParams()
     const {isAdmin, username} = useContext(AuthContext);
     const [profile, setProfile] = useState({
@@ -37,9 +37,9 @@ export default function Profile(props) {
         <ColorContext.Consumer>
             {({colormode}) => (
             <div>
-                <ProfileCard userData={profile.userdata}/>
+                <ProfileCard userData={profile.userdata} t={t} i18n={i18n}/>
                 <Card className= {`${colormode.asClasses} my-1`}>
-                    <Card.Header as="h5">Collections:</Card.Header>
+                    <Card.Header as="h5">{t('profile_collections')}:</Card.Header>
                     <Card.Body>
                         <Table size="sm" bordered hover responsive variant={colormode.table}>
                             <thead>
@@ -50,16 +50,16 @@ export default function Profile(props) {
                                             variant="outline-success"
                                             as="a"
                                             href={`/collection/create/${profileUserName}`}
-                                            >Create new collection</Button>
+                                            >{t('profile_create')}</Button>
                                     </th>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <th>Name <small> (Click for view items) </small> </th>
-                                    <th>Image URL</th>
-                                    <th>Theme</th>
-                                    <th>Items</th>
-                                    <th>Created</th>
+                                    <th>{t('profile_table_name')}<small> ({t('profile_table_small')}) </small> </th>
+                                    <th>{t('profile_image_url')}</th>
+                                    <th>{t('profile_theme')}</th>
+                                    <th>{t('profile_items')}</th>
+                                    <th>{t('profile_created')}</th>
 
                                 </tr>
                             </thead>
@@ -75,4 +75,4 @@ export default function Profile(props) {
             )}
         </ColorContext.Consumer>
     )
-}
+})

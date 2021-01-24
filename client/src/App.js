@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "@yaireo/tagify/dist/tagify.css"
@@ -19,6 +20,7 @@ import ItemForm from './items/ItemForm';
 import {AuthContext, ColorContext, colormods} from './core/context';
 
 function App() {
+    const { t, i18n } = useTranslation();
 
     let isAuth, isAdmin, userId, username, colormode, lang;
     const data = JSON.parse(localStorage.getItem('userData'))

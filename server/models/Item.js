@@ -12,7 +12,7 @@ var ItemSchema = new Schema(
         image_id: {type: String},
         created: {type: Date, default: Date.now},
         like_list: [{type: Schema.Types.ObjectId, ref: 'User'}],
-        comment: {type: Schema.Types.ObjectId, ref: 'Comment' },
+        comment: {type: Schema.Types.ObjectId, ref: 'Comment', text : true},
     }
 );
 

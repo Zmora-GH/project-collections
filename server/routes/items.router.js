@@ -50,11 +50,6 @@ router.get('/search', async (req, res) => {
         const search = req.query.search;
         const items = await Item.find({$text: {$search: search}})
         .populate({path: 'tags_id', model: Tag})
-        // const colls = await Collection.find({$text: {$search: search}})
-        // const comms = await Comment.find({$text: {$search: search}})
-        // console.log('Search in Is = ', items.length);
-        // console.log('Search in Cl = ', colls.length);
-        // console.log('Search in Cm = ', comms.length);
         res.status(200).json({items: items});
    } catch (err) {
        console.log(err);

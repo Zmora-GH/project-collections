@@ -22,23 +22,23 @@ export default function ProfileCard(props) {
                         <Table size='sm' variant={colormode.table}>
                             <tbody>
                                 <tr>
-                                    <td> Email: </td>
+                                    <td> {props.t('profile_email')}: </td>
                                     <td>{props.userData.email} </td>
                                 </tr>
                                 <tr>
-                                    <td> Joined: </td>
+                                    <td> {props.t('profile_joined')}: </td>
                                     <td> {new Date(props.userData.created).toLocaleDateString()} </td>
                                 </tr>
                                 <tr>
-                                    <td> Colections: </td>
+                                    <td> {props.t('profile_collections')}: </td>
                                     <td> {props.userData.collections.length} </td>
                                 </tr>
                                 <tr>
-                                    <td> Status: </td>
+                                    <td> {props.t('profile_status')}: </td>
                                     {props.userData.status ?
-                                    <td><Badge variant="danger">BANNED</Badge></td>
+                                    <td><Badge variant="danger">{props.t('profile_banned')}</Badge></td>
                                     :
-                                    <td><Badge variant="success">ALIVE</Badge></td>
+                                    <td><Badge variant="success">{props.t('profile_alive')}</Badge></td>
                                     }
                                 </tr>
                             </tbody>
@@ -52,6 +52,8 @@ export default function ProfileCard(props) {
                             </Col>
                             <Col>
                                 <LanguageSwitchButton
+                                    i18n={props.i18n}
+                                    t={props.t}
                                     user={props.userData._id}/>
                             </Col>
                         </Row>

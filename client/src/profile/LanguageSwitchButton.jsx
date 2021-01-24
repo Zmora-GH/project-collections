@@ -4,9 +4,14 @@ import axios from 'axios';
 
 export default function LanguageSwitchButton(props) {
     const [chk, setChk] = useState(false)
+
     const changeHandle = () => {
+        props.i18n.changeLanguage( chk ? 'en' : 'ru')
+        //axios
+        //storage
         setChk(!chk)
     }
+
     return (
         <FormCheck
             checked={chk}
