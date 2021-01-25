@@ -22,7 +22,8 @@ export default withTranslation()(function Profile({ t, i18n }) {
 
     useEffect(() => {
         if (isAdmin || profileUserName === username) {
-            axios.post('/api/profile', { "username": profileUserName})
+            let params = { username: profileUserName}
+            axios.get('/api/profile', {params})
             .then((res)=>{
                 setProfile({userdata: res.data.userdata, collections: res.data.collections})
             })

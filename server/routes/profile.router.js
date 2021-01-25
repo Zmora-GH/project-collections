@@ -5,10 +5,9 @@ const Theme = require('../models/Theme');
 
 const router = Router();
 
-// TODO: post --> get
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const username = req.body.username;
+        const username = req.query.username;
         const user = await User.findOne({username: username}).populate({path: 'collections', model: Collection})
         const colls = await Collection.find({user_id: user._id})
         res.status(201).json({'userdata': user, 'collections': colls.map(coll=>{return coll.toJSON()})});
