@@ -3,11 +3,12 @@ import {useParams} from "react-router-dom";
 import {Card, Button, Col, Row, Badge} from 'react-bootstrap';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown'
+import { withTranslation } from 'react-i18next';
 
 import Item from '../items/Item';
 import {AuthContext, ColorContext} from '../core/context';
 
-export default function Collection() {
+export default withTranslation()(function Collection({t}) {
     const {collId} = useParams();
     const [loading, setLoading] = useState(true)
     const {isAuth, isAdmin, userId} = useContext(AuthContext);
@@ -39,7 +40,7 @@ export default function Collection() {
                         variant="outline-secondary"
                         className="float-right mx-1 px-2"
                         onClick={()=>{}}>
-                        Edit Collection
+                        {t('colls_button_edit')}
                     </Button>
                     <Button
                         size="sm"
@@ -47,7 +48,7 @@ export default function Collection() {
                         className="float-right mx-1 px-2"
                         as="a"
                         href={`/collection/create_item/${collection._id}`}>
-                        Add Item
+                        {t('colls_button_add')}
                     </Button>
                 </Card.Title>
             :
@@ -68,11 +69,16 @@ export default function Collection() {
                     </Col>
                     <Col lg={9}>
                         { collection.items.map((data, index) => {
-                            return <Item key={index} data={data} owner={isAdmin || userId===collection.user_id} colormode={colormode}/>
+                            return <Item
+                                key={index}
+                                data={data}
+                                owner={isAdmin || userId===collection.user_id}
+                                colormode={colormode}
+                                t={t}/>
                         })}
                     </Col>
                 </Row>
             </Card.Body>
         </Card>
     )}
-}
+})

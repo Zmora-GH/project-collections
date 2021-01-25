@@ -4,12 +4,13 @@ import {Table, Card, Button, ButtonGroup} from 'react-bootstrap';
 import axios from 'axios';
 import { useTable, useSortBy } from 'react-table'
 import {TrashFill, PenFill} from 'react-bootstrap-icons';
+import { withTranslation } from 'react-i18next';
 
 import Item from '../items/Item';
 import { AuthContext } from '../core/context';
 import { ColorContext } from '../core/context';
 
-export default function CollectionTable() {
+export default withTranslation()(function CollectionTable({t}) {
     const {collId} = useParams();
     const {colormode} = useContext(ColorContext);
     const [loading, setLoading] = useState(true);
@@ -105,7 +106,7 @@ export default function CollectionTable() {
                     size="sm"
                     variant="success"
                     className="my-2 mx-1">
-                    {'Add Item'}
+                    {t('colls_button_add')}
                 </Button>
                 <Table size="sm" bordered hover responsive variant={colormode.table}>
                     <thead>
@@ -144,4 +145,4 @@ export default function CollectionTable() {
             </Card.Body>
         </Card>
     )}
-}
+})

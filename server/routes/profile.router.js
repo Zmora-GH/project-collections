@@ -21,8 +21,7 @@ router.post('/', async (req, res) => {
 router.post('/colormode', async (req, res) => {
     try {
         const {userId, colormode} = req.body;
-        console.log(colormode === 'dark' ? 'light' : 'dark');
-        const user = await User.findByIdAndUpdate(userId, {colormode: colormode === 'dark' ? 'light' : 'dark'})
+        await User.findByIdAndUpdate(userId, {colormode: colormode === 'dark' ? 'light' : 'dark'})
         res.status(200).json({});
    } catch (err) {
        console.log(err);
@@ -32,6 +31,8 @@ router.post('/colormode', async (req, res) => {
 
 router.post('/lang', async (req, res) => {
     try {
+        const {userId, lang} = req.body;
+        await User.findByIdAndUpdate(userId, {lang: lang})
         res.status(200).json({});
    } catch (err) {
        console.log(err);

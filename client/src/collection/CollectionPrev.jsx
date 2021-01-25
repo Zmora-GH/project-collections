@@ -31,8 +31,8 @@ export default function CollectionPrev(props) {
                 </Row>
                 <Row>
                     <Col>
-                        <span>Theme: <strong>{props.data.theme}</strong></span>
-                        <span className="float-right">Total items: <strong>{props.data.itemCount}</strong></span>
+                        <span>{props.t('colls_prev_theme')}: <strong>{props.data.theme}</strong></span>
+                        <span className="float-right">{props.t('colls_prev_total')}: <strong>{props.data.itemCount}</strong></span>
                     </Col>
                 </Row>
             </Card.Body>

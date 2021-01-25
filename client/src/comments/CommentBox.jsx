@@ -11,7 +11,6 @@ export default function CommentBox(props) {
     const [intID, setIntID] = useState(null)
 
     const getComments = ()=>{
-        console.log('- - - - - - - > ', new Date());
         let params = {itemId: props.itemId}
         axios.get('/api/comments', {params})
         .then((res)=>{
@@ -33,8 +32,12 @@ export default function CommentBox(props) {
     return (
         <Row className="mt-4 mx-auto">
             <Col lg={12} >
-                { comments.map((comment, index)=>{ return <Comment data={comment} key={index} colormode={props.colormode}/> })}
-                <CommentForm itemId={props.itemId} onSubmitGetComment={()=>{getComments()}} colormode={props.colormode}/>
+                {comments.map((comment, index)=> <Comment data={comment} key={index} colormode={props.colormode}/>)}
+                <CommentForm
+                    itemId={props.itemId}
+                    onSubmitGetComment={()=>{getComments()}}
+                    colormode={props.colormode}
+                    t={props.t}/>
             </Col>
         </Row>
     )

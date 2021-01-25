@@ -45,7 +45,7 @@ export default function Item(props) {
                     </Card.Title>
                     <Card.Body>
                         <Tabs activeKey={key} className="mx-auto" onSelect={(k) => setKey(k)}>
-                            <Tab eventKey="item" title="Item" tabClassName={props.colormode.asClasses}>
+                            <Tab eventKey="item" title={props.t('item')} tabClassName={props.colormode.asClasses}>
                                 <Row className="mt-4">
                                     <Col md={5}>
                                         <Card.Img
@@ -115,14 +115,24 @@ export default function Item(props) {
 
                                     <Row>
                                         <Col md={12} >
-                                            <small className="text-muted float-right"> {new Date(props.data.created).toLocaleDateString()}</small>
+                                            <small
+                                                className="text-muted float-right">
+                                                {new Date(props.data.created).toLocaleDateString()}
+                                            </small>
                                         </Col>
                                     </Row>
 
                                 </Tab>
-                                <Tab eventKey="comments" title="Comments"  tabClassName={props.colormode.asClasses}>
+                                <Tab
+                                    eventKey="comments"
+                                    title={props.t('item_comments')}
+                                    tabClassName={props.colormode.asClasses}>
                                     <Card.Body>
-                                        <CommentBox itemId={props.data._id} isOpen={(key === 'comments')} colormode={props.colormode}/>
+                                        <CommentBox
+                                            itemId={props.data._id}
+                                            isOpen={(key === 'comments')}
+                                            colormode={props.colormode}
+                                            t={props.t}/>
                                     </Card.Body>
                                 </Tab>
                     </Tabs>

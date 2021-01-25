@@ -28,7 +28,7 @@ export default function CommentForm(props) {
                     onChange={changeHandle}
                     as="textarea"
                     rows={3}
-                    placeholder="Your comment ..."
+                    placeholder={props.t('item_comments_placeholder')}
                     style={{"resize":"none"}}
                     className={props.colormode.asClasses}
                     />
@@ -37,7 +37,7 @@ export default function CommentForm(props) {
                     type="submit"
                     size="sm"
                     className="float-right"
-                    > Submit </Button>
+                    > {props.t('item_comments_submit')} </Button>
             </Form>
         </Toast>
     )}

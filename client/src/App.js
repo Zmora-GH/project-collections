@@ -40,6 +40,10 @@ function App() {
         lang = 'en'
     }
 
+    if ( localStorage.getItem('langData') === null ) {
+        localStorage.setItem('langData', lang)
+    }
+
     let tmpcolor = '';
     if (localStorage.getItem('colorData')) {
         tmpcolor = JSON.parse(localStorage.getItem('colorData'));

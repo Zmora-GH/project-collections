@@ -45,23 +45,23 @@ export default withTranslation()(function Main({t}) {
                         <Jumbotron className={"w-100 text-center" + colormode.asClasses}>
                             <Container>
                                 <h1>
-                                    <span> Welcom to </span>
+                                    <span> {t('main_welcom_to')} </span>
                                     <strong className="decor-brand-text">Collections</strong>
                                 </h1>
                                 <p>
-                                    Here is a small message for visitors about this site.
+                                    {t('main_welcom_small')}
                                 </p>
                             </Container>
                         </Jumbotron>
                     </Row>
                     <Row className="mb-4 justify-content-center">
-                        <Col lg={12}><h4> Last added items:</h4></Col>
+                        <Col lg={12}><h4> {t('main_last')}:</h4></Col>
                         {lastItems ? lastItems.map((item, index)=>{
                             return (<ItemPrev data={item} key={index} colormode={colormode} t={t}/>)
                         }):""}
                     </Row>
                     <Row className="mb-4 justify-content-center">
-                        <Col lg={12}><h4> Largest collections:</h4></Col>
+                        <Col lg={12}><h4> {t('main_largest')}:</h4></Col>
                             {largeColls ? largeColls.map((coll, index)=>{
                                 return (<CollectionPrev data={coll} key={index} colormode={colormode} t={t}/>)
                             }):""}
@@ -69,7 +69,7 @@ export default withTranslation()(function Main({t}) {
                 </Col>
                 <Col lg={2}>
                     <div className="my-2">
-                        <h5> Tags: </h5>
+                        <h5> {t('main_tags')}: </h5>
                         {tagCloud ? tagCloud.map((tag, index)=>{
                             return (
                                 <Badge
