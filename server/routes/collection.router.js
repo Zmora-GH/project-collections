@@ -12,6 +12,17 @@ const upload = multer()
 
 const FileCloudApi = require('../api/FileCloudApi')
 
+router.get('/byId', async (req, res) => {
+    try {
+        const coll_id = req.query.collection_id;
+        const coll = await Collection.findById(coll_id)
+        res.status(200).json({collection: coll.toJSON()});
+   } catch (err) {
+       console.log(err);
+       res.status(500).json({message: 'Oops!'});
+   }
+})
+
 router.get('/', async (req, res) => {
     try {
         const coll_id = req.query.collection_id;
@@ -26,7 +37,7 @@ router.get('/', async (req, res) => {
         res.status(200).json(coll.toJSON());
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch items.router : get'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -48,7 +59,7 @@ router.get('/largest', async (req, res) => {
         res.status(200).json({largest: colls});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch items.router : get'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -79,7 +90,7 @@ router.post('/add', async (req, res) => {
         res.status(201).json({item_id: item._id});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch collections.router : add'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -99,7 +110,7 @@ router.post('/create', async (req, res) => {
         res.status(201).json({coll_id: coll._id});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch collections.router : create'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -110,7 +121,7 @@ router.post('/scheme', async (req, res) => {
         res.status(200).json(coll.field_mask);
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch collections.router : scheme'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -122,7 +133,22 @@ router.post('/delete', async (req, res) => {
         res.status(200).json({});
     } catch (err) {
         console.log(err);
-        res.status(500).json({message: 'Oops! Error in TryCatch users.router'});
+        res.status(500).json({message: 'Oops!'});
+    }
+})
+
+router.post('/edit', async (req, res) => {
+    try {
+        const data = req.body
+        await Collection.findByIdAndUpdate(data.collection_id, {
+            name: data.name,
+            theme: data.theme,
+            description: data.description
+        })
+        res.status(200).json({});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({message: 'Oops!'});
     }
 })
 
@@ -154,7 +180,7 @@ router.post('/image', upload.any(), async (req, res) => {
         res.status(201).json({});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch collections.router : image'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 

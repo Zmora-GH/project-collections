@@ -17,6 +17,7 @@ import CollectionTable from './collection/CollectionTable';
 import CollectionForm from './collection/CollectionForm';
 import ItemList from './items/ItemList';
 import ItemForm from './items/ItemForm';
+
 import {AuthContext, ColorContext, colormods} from './core/context';
 
 function App() {
@@ -69,8 +70,8 @@ function App() {
                         <Switch>
                             <Route path="/profile/:profileUserName" exact> <Profile /> </Route>
                             {isAdmin ? <Route path="/admin" exact> <Admin /> </Route> : ''}
-                            <Route path="/collection/create/:profile_name" exact> <CollectionForm /> </Route> : ''}
-                            <Route path="/collection/create_item/:collection_id"> <ItemForm /> </Route> : ''}
+                            <Route path="/collection/create/:profile_name" exact> <CollectionForm /> </Route>
+                            <Route path="/collection/create_item/:collection_id"> <ItemForm /> </Route>
                             <Route path="/collection/:collId" exact> <Collection /> </Route>
                             <Route path="/items/:subject" exact> <ItemList /> </Route>
                             <Route path="/search/:subject" exact> <ItemList /> </Route>

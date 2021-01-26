@@ -21,7 +21,7 @@ export default function ItemPrev(props) {
                         rounded
                         fluid
                         variant="top"
-                        src={`/static/${props.data.image_url}`}/>
+                        src={`${props.data.image_url}`}/>
                 </Row>
                 <Row className="my-1">
                     {props.data.tags_id.map((tag, index)=>{

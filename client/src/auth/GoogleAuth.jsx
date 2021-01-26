@@ -20,7 +20,7 @@ export default function GoogleAuth(props) {
 
     return (
         <GoogleLogin
-            clientId="442745189059-183d5c6v8o5314bpa433fe3u9h6qpg7v.apps.googleusercontent.com"
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             render={renderProps => (
                 <button
                     className="btn-sm btn-light btn-block my-1"
@@ -32,7 +32,7 @@ export default function GoogleAuth(props) {
             onSuccess={responseGoogle}
             onFailure={(res) => { console.error(res) }}
             cookiePolicy={'single_host_origin'}
-            redirectUri="http://localhost:3000"
+            redirectUri={process.env.REACT_APP_REDIRECT_URI}
           />
     )
 }

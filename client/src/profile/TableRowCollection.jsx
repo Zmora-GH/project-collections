@@ -7,10 +7,6 @@ export default function TableRowCollection(props) {
     const [hover, setHover] = useState(false)
     const [isDel, setIsDel] = useState(false)
 
-    const editHandle = () =>{
-        // TODO: edit
-    }
-
     const deleteHandle = () =>{
         axios.post('/api/collection/delete', {coll_id: props.data._id})
         setIsDel(true)
@@ -21,13 +17,13 @@ export default function TableRowCollection(props) {
         <tr onMouseOver={()=>{setHover(true)}} onMouseOut={()=>{setHover(false)}} >
             <td className="ctd align-middle p-0">
                 <ButtonGroup className={` ${ hover ? '': 'invisible'}`}>
-                  <Button size="sm" variant="outline-info" onClick={editHandle}>
+                  <Button size="sm" variant="info" as="a" href={`/collection/edit/${props.data._id}`}>
                       <PenFill color="white" className=""/>
                   </Button>
-                  <Button size="sm" variant="outline-success" as="a" href={ `/collection/create_item/${props.data._id}` }>
+                  <Button size="sm" variant="success" as="a" href={ `/collection/create_item/${props.data._id}` }>
                       <PlusSquare color="white" />
                   </Button>
-                  <Button size="sm" variant="outline-danger" onClick={deleteHandle}>
+                  <Button size="sm" variant="danger" onClick={deleteHandle}>
                       <TrashFill color="white" />
                   </Button>
                 </ButtonGroup>

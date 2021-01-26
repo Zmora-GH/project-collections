@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
         res.status(200).json({comments: comments});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch comment.router : /'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -27,7 +27,7 @@ router.post('/add', async (req, res) => {
         res.status(201).json({});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch comment.router : /'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 

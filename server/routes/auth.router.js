@@ -23,7 +23,7 @@ router.post('/google_signin', async (req, res) => {
         }
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch auth.router : signup'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -37,7 +37,7 @@ router.post('/signup', async (req, res) => {
         res.status(201).json({ message: 'User Created' });
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch auth.router : signup'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -52,7 +52,7 @@ router.post('/signin', async (req, res) => {
         res.status(200).json({token: token, user: tmpUser})
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch auth.router : signin'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 

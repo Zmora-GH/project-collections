@@ -36,7 +36,12 @@ export default function Item(props) {
                                     onClick={deleteHandle}>
                                     <TrashFill color="red" />
                                 </Button>
-                                <Button size="sm" variant="outline-secondary" className="float-right mx-1 px-2">
+                                <Button
+                                    as="a"
+                                    href={`#`}
+                                    size="sm"
+                                    variant="outline-secondary"
+                                    className="float-right mx-1 px-2">
                                     <PenFill color="gray" />
                                 </Button>
                             </span>
@@ -50,7 +55,7 @@ export default function Item(props) {
                                     <Col md={5}>
                                         <Card.Img
                                             variant="top"
-                                            src={`/static/${props.data.image_url}` || '/static/noimage.jpg'}
+                                            src={`${props.data.image_url}` || '/static/noimage.jpg'}
                                             fluid
                                             rounded
                                             className="border border-secondary"

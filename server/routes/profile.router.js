@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
         res.status(201).json({'userdata': user, 'collections': colls.map(coll=>{return coll.toJSON()})});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch profile.router : post /'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -24,7 +24,7 @@ router.post('/colormode', async (req, res) => {
         res.status(200).json({});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch profile.router : colormode /'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -35,7 +35,7 @@ router.post('/lang', async (req, res) => {
         res.status(200).json({});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch profile.router : lang /'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 

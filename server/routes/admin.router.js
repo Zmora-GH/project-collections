@@ -9,7 +9,7 @@ router.get('/users', async (req, res) => {
         res.json(userList);
     } catch (err) {
         console.log(err);
-        res.status(500).json({message: 'Oops! Error in TryCatch users.router'});
+        res.status(500).json({message: 'Oops! '});
     }
 })
 
@@ -20,7 +20,7 @@ router.post('/block', async (req, res) => {
         res.status(201).json({});
     } catch (err) {
         console.log(err);
-        res.status(500).json({message: 'Oops! Error in TryCatch users.router'});
+        res.status(500).json({message: 'Oops! '});
     }
 })
 
@@ -31,7 +31,7 @@ router.post('/unblock', async (req, res) => {
         res.status(201).json({});
     } catch (err) {
         console.log(err);
-        res.status(500).json({message: 'Oops! Error in TryCatch users.router'});
+        res.status(500).json({message: 'Oops! '});
     }
 })
 
@@ -42,7 +42,7 @@ router.post('/delete', async (req, res) => {
         res.status(201).json({});
     } catch (err) {
         console.log(err);
-        res.status(500).json({message: 'Oops! Error in TryCatch users.router'});
+        res.status(500).json({message: 'Oops! '});
     }
 })
 
@@ -53,7 +53,7 @@ router.post('/assign', async (req, res) => {
         res.status(201).json({});
     } catch (err) {
         console.log(err);
-        res.status(500).json({message: 'Oops! Error in TryCatch users.router'});
+        res.status(500).json({message: 'Oops! '});
     }
 })
 

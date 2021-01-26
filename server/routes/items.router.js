@@ -9,13 +9,27 @@ const router = Router();
 
 const FileCloudApi = require('../api/FileCloudApi')
 
+router.get('/byId', async (req, res) => {
+    try {
+        const item_id = req.query.item_id;
+        const item = await Item.findById(item_id)
+        .populate({path: 'fieldset_id', model: Fieldset})
+        .populate({path: 'tags_id', model: Tag})
+        .populate({path: 'collection_id', model: Collection})
+        res.status(200).json({item: item});
+   } catch (err) {
+       console.log(err);
+       res.status(500).json({message: 'Oops!'});
+   }
+})
+
 router.get('/last', async (req, res) => {
     try {
         const items = await Item.find().sort('-created').limit(3).populate({path: 'tags_id', model: Tag})
         res.status(200).json({last: items});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch items.router : getlast'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -28,7 +42,7 @@ router.get('/', async (req, res) => {
         res.status(200).json(items);
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch items.router : get'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -41,7 +55,7 @@ router.get('/withtag', async (req, res) => {
         res.status(200).json({items: items});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch items.router : get'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -53,7 +67,7 @@ router.get('/search', async (req, res) => {
         res.status(200).json({items: items});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch items.router : get'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 
@@ -65,7 +79,18 @@ router.post('/delete', async (req, res) => {
         res.status(200).json({});
     } catch (err) {
         console.log(err);
-        res.status(500).json({message: 'Oops! Error in TryCatch users.router'});
+        res.status(500).json({message: 'Oops!'});
+    }
+})
+
+router.post('/edit', async (req, res) => {
+    try {
+        const aaa = req.body
+        console.log(aaa);
+        res.status(200).json({});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({message: 'Oops!'});
     }
 })
 
@@ -80,7 +105,7 @@ router.post('/like', async (req, res) => {
         res.status(200).json({likes: item.likes});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch items.router : like'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 

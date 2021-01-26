@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
         res.status(200).json({tags: tags});
    } catch (err) {
        console.log(err);
-       res.status(500).json({message: 'Oops! Error in TryCatch tag.router : get /'});
+       res.status(500).json({message: 'Oops!'});
    }
 })
 

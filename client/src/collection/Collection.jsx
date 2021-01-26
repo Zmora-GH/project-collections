@@ -39,7 +39,9 @@ export default withTranslation()(function Collection({t}) {
                         size="sm"
                         variant="outline-secondary"
                         className="float-right mx-1 px-2"
-                        onClick={()=>{}}>
+                        as="a"
+                        href={`#`}
+                        >
                         {t('colls_button_edit')}
                     </Button>
                     <Button
@@ -57,7 +59,7 @@ export default withTranslation()(function Collection({t}) {
             <Card.Body>
                 <Row>
                     <Col lg={3}>
-                        <Card.Img src={`/static/${collection.image_url}`}/>
+                        <Card.Img src={collection.image_url}/>
                         <strong ># {collection.user_id.username.toUpperCase()} </strong>
                         {collection.user_id.status ? <Badge variant="danger">Banned</Badge>: ''}
                         <Badge variant="warning">admin</Badge>

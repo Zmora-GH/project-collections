@@ -3,7 +3,6 @@ import {Form, Button, Card} from 'react-bootstrap';
 import axios from 'axios';
 
 import GoogleAuth from './GoogleAuth';
-import YandexAuth from './YandexAuth';
 
 export default function Login() {
     const [isLoading, setLoading] = useState(false);

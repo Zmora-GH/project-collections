@@ -1,5 +1,4 @@
 import React from 'react';
-//import {Link} from 'react-bootstrap';
 
 export default function TableRow(props) {
     return (

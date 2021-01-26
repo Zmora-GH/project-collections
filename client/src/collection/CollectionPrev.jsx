@@ -21,7 +21,7 @@ export default function CollectionPrev(props) {
                             rounded
                             fluid
                             variant="top"
-                            src={`/static/${props.data.image_url}`}/>
+                            src={props.data.image_url}/>
                     </Col>
                     <Col lg={8}>
                         <Card.Text>

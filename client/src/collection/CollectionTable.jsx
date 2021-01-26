@@ -56,7 +56,7 @@ export default withTranslation()(function CollectionTable({t}) {
         return result;
     }
 
-    useEffect(()=>{    /// layot
+    useEffect(()=>{ 
         if (!collection) {
             let params = {collection_id: collId}
             axios.get('/api/collection', {params})
@@ -87,12 +87,10 @@ export default withTranslation()(function CollectionTable({t}) {
         return result;
     }
 
-    const editHandle = (event)=>{
-        console.log(getItemIdForRow(event.target.closest('tr')))
-    }
-
     const deleteHandle = (event)=>{
-        console.log(getItemIdForRow(event.target.closest('tr')))
+        axios.post('/api/items/delete', {item_id: getItemIdForRow(event.target.closest('tr'))})
+        .then( (res) => { setLoading(false) } )
+        .catch( (err) => { console.log(err) } )
     }
 
     if (loading) { return ''} else {
@@ -127,7 +125,7 @@ export default withTranslation()(function CollectionTable({t}) {
                             <tr {...row.getRowProps()} >
                                 <td className="text-center">
                                     <ButtonGroup >
-                                        <Button size="sm" variant="info" onClick={editHandle}>
+                                        <Button size="sm" variant="info" as='a' href="#">
                                             <PenFill color="white" />
                                         </Button>
                                         <Button size="sm" variant="danger" onClick={deleteHandle}>

@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
         res.status(201).json(themes.map((item)=>{ return item.name }));
    } catch (err) {
         console.log(err);
-        res.status(500).json({message: 'Oops! Error in TryCatch theme.router : get / '});
+        res.status(500).json({message: 'Oops!'});
    }
 })
 
