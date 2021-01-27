@@ -21,8 +21,12 @@ export default withTranslation()(function CollectionTable({t}) {
     const [cellData, setCellData] = useState([]);
 
     const generateColumns = (field_mask) => {
-        let result = field_mask.filter((f,i) => !!f && !( i >= 6 && i < 9))
-        .map((f, i, ) => new Object({ Header: f, accessor: `col${field_mask.indexOf(f)}`}))
+        let result = []
+        for (var index = 0; index < 15; index++) {
+            if (!!field_mask[index] && (index < 6 || index >=9)) {
+                result.push({ Header: field_mask[index], accessor: `col${index}`})
+            }
+        }
         return [
             { Header: "Name", accessor: `name`},
             ...result,
@@ -56,7 +60,7 @@ export default withTranslation()(function CollectionTable({t}) {
         return result;
     }
 
-    useEffect(()=>{ 
+    useEffect(()=>{
         if (!collection) {
             let params = {collection_id: collId}
             axios.get('/api/collection', {params})
@@ -65,6 +69,7 @@ export default withTranslation()(function CollectionTable({t}) {
                 setColData(generateColumns(res.data.field_mask))
                 setCellData(generateData(res.data.items))
                 setLoading(false)
+
              })
             .catch((err)=>{
                 console.log(err);

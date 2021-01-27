@@ -29,6 +29,7 @@ export default withTranslation()(function Collection({t}) {
         }
     },[])
 
+    console.log(collection);
     if (loading){return ''} else {
     return (
         <Card className={"m-1 p-2" + colormode.asClasses}>

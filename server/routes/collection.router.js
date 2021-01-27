@@ -162,7 +162,7 @@ router.post('/image', upload.any(), async (req, res) => {
             const entity = 'collections'
             const resp = await FileCloudApi.upload(img, entity, storage)
             if (resp.status) {
-                await Collection.findOneAndUpdate({_id: item_id}, {
+                await Collection.findOneAndUpdate({_id: coll_id}, {
                     image_url: resp.url,
                     image_id: resp.public_id
                 })

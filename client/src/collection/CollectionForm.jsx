@@ -9,7 +9,7 @@ import Field from './Field'
 import DropImageBox from '../drops/DropImageBox';
 
 export default function CollectionForm() {
-    const {profile_name} = useParams(); // Перед этим возникает 404 // замменитть на пропс + переход после submit
+    const {profile_name} = useParams();
     const {colormode} = useContext(ColorContext);
     const [formData, setFormData] = useState({name: "", theme: "", discription: ""})
     const [themes, setThemes] = useState([])
@@ -68,7 +68,7 @@ export default function CollectionForm() {
 
     return (
         <Card className={"my-1 p-3" + colormode.asClasses}>
-            <Form className="bg-dark text-light" onSubmit={formSubmitHandle}>
+            <Form className={colormode.asClasses} onSubmit={formSubmitHandle}>
                 <Form.Row>
                     <Col lg={3}>
                         <Form.Group className={colormode.asClasses}>
@@ -131,7 +131,7 @@ export default function CollectionForm() {
                     return (<Field key={index} field={field} index={index} func={fieldsChangeHandle} colormode={colormode}/>)
                 })}
             </Form>
-            <Button variant="light" type="submit" className="my-3 px-3 float-right w-25">
+            <Button variant="secondary" type="submit" className="my-3 px-3 float-right w-25">
                 Create
             </Button>
             </Form>
